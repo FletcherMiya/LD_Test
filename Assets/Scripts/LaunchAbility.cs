@@ -5,6 +5,8 @@ public class TelekinesisAbility : MonoBehaviour
     public Camera playerCamera;
     public Transform holdPoint;
     public float maxDistance = 10f;
+    public float sphereRadius = 1.0f;
+
     public float throwForce = 40f;
     public float destroyTime = 5f;  // 物体存在的时间
     public float attractionForce = 50f; // 吸引至holdPoint时施加的力大小
@@ -25,6 +27,8 @@ public class TelekinesisAbility : MonoBehaviour
     private Vector3 risePoint;  // 固定上升目标点
 
 
+    private GameObject lastHighlighted = null;
+
 
     private bool isHolding = false;
     private bool hasAppliedHorizontalForce = false;
@@ -43,6 +47,15 @@ public class TelekinesisAbility : MonoBehaviour
             }
         }
 
+        if (!isHolding)
+        {
+            HighlightObjectUnderCrosshair();
+        }
+                else if (lastHighlighted != null)
+        {
+            lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
+            lastHighlighted = null;
+        }
     }
 
     private void FixedUpdate()
@@ -55,24 +68,26 @@ public class TelekinesisAbility : MonoBehaviour
 
     void TryPickAndCloneObject()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, maxDistance))
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
+
+        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
+        foreach (RaycastHit hit in hits)
         {
             if (hit.collider.CompareTag("Throwable"))
             {
                 originalObject = hit.collider.gameObject;
                 selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
                 Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
-
                 Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.isKinematic = false;
+                    rb.isKinematic = false; // 确保复制的物体不是kinematic
                 }
                 isHolding = true;
                 stage = 0;
-
                 risePoint = new Vector3(originalObject.transform.position.x, originalObject.transform.position.y + riseHeight, originalObject.transform.position.z);
+                break; // 找到第一个合适的物体后停止搜索
             }
         }
     }
@@ -94,12 +109,11 @@ public class TelekinesisAbility : MonoBehaviour
                 float distanceToRisePoint = directionToRisePoint.magnitude;
                 if (!hasAppliedHorizontalForce)
                 {
-                    // 在水平方向上添加一个随机方向的力
                     Vector3 horizontalDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
                     rb.AddForce(horizontalDir * horizontalForce, ForceMode.Impulse);
                     Vector3 torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
                     rb.AddTorque(torque * rotationForce, ForceMode.Impulse);
-                    hasAppliedHorizontalForce = true;  // 标记水平力已施加
+                    hasAppliedHorizontalForce = true;
                 }
                 if (distanceToRisePoint > 0.1f)
                 {
@@ -112,10 +126,10 @@ public class TelekinesisAbility : MonoBehaviour
                     stage = 2;
                     stageChangeTime = Time.time;
                     rb.velocity = Vector3.zero;
+                    Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), false);
                 }
                 break;
             case 2:
-                Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), false);
                 Vector3 directionToHoldPoint = holdPoint.position - selectedObject.transform.position;
                 float distanceToHoldPoint = directionToHoldPoint.magnitude;
                 if (Time.time - stageChangeTime >= delayBetweenStages)
@@ -140,8 +154,46 @@ public class TelekinesisAbility : MonoBehaviour
             }
             Destroy(selectedObject, destroyTime);
             selectedObject = null;
-            originalObject = null;  // 清空原始物体引用
+            originalObject = null;
             isHolding = false;
+        }
+    }
+
+    void HighlightObjectUnderCrosshair()
+    {
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
+        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
+
+        GameObject closestObject = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Throwable"))
+            {
+                float distance = hit.distance; // 获取当前物体距离摄像机的距离
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestObject = hit.collider.gameObject;
+                }
+            }
+        }
+
+        if (closestObject != null && lastHighlighted != closestObject)
+        {
+            if (lastHighlighted != null)
+            {
+                lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();  // 移除上一个物体的高亮
+            }
+            closestObject.GetComponent<MaterialManager>().ApplyHighlight();  // 应用高亮效果
+            lastHighlighted = closestObject; // 更新最后一个高亮的物体
+        }
+        else if (closestObject == null && lastHighlighted != null)
+        {
+            lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
+            lastHighlighted = null;
         }
     }
 }
