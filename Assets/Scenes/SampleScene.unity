@@ -1236,7 +1236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1105933139}
   - component: {fileID: 1105933140}
-  - component: {fileID: 1105933141}
   - component: {fileID: 1105933142}
   m_Layer: 8
   m_Name: PlayerAbilities
@@ -1284,20 +1283,6 @@ MonoBehaviour:
   horizontalForce: 5
   rotationForce: 0.2
   delayBetweenStages: 0.15
---- !u!114 &1105933141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105933138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3dbab1c20f83ed4bbc52456421b4052, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetGameObject: {fileID: 1540070321}
-  yOffset: 1
 --- !u!114 &1105933142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1741,11 +1726,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 306676542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1540070321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 149290, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
-  m_PrefabInstance: {fileID: 676806604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
