@@ -196,6 +196,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11404178, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
+      propertyPath: openCloseWindow
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11411552, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
       propertyPath: openCloseWindow
       value: 0
@@ -560,16 +564,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 94911859}
   holdPoint: {fileID: 1429352500}
-  maxDistance: 30
-  moveSpeed: 10
-  throwForce: 30
-  destroyTime: 2
-  attractionForce: 20
-  shakeIntensity: 10
-  damping: 10
+  maxDistance: 100
+  throwForce: 50
+  destroyTime: 5
+  attractionForce: 90
+  damping: 9
   riseHeight: 2
   initialUpwardForce: 10
-  delayBetweenStages: 0.1
+  horizontalForce: 5
+  rotationForce: 0.2
+  delayBetweenStages: 0.2
 --- !u!1 &1216934303
 GameObject:
   m_ObjectHideFlags: 0
