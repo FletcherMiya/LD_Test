@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class TelekinesisAbility : MonoBehaviour
 {
-    public Camera playerCamera;
-    public Transform holdPoint;
-    public float maxDistance = 10f;
-    public float sphereRadius = 1.0f;
+    public Camera playerCamera; //主摄像机
+    public Transform holdPoint; //物体漂浮点
+    public float maxDistance; //最大抓取距离
+    public float sphereRadius; //判定球大小
 
-    public float throwForce = 40f;
-    public float destroyTime = 5f;  // 物体存在的时间
-    public float attractionForce = 50f; // 吸引至holdPoint时施加的力大小
-    public float damping = 0.5f; // 阻尼系数，减少物体到达hold point后的振动幅度
-    public float riseHeight = 3.0f; //上升高度
-    public float initialUpwardForce = 10f;
-    public float horizontalForce = 5f; // 控制上升阶段开始时施加的水平方向力的大小
-    public float rotationForce = 10f;　// 控制旋转力的大小
+    public float throwForce; //投掷力度
+    public float destroyTime;  // 物体存在时间
+    public float attractionForce; // 吸引至漂浮点时的吸力大小
+    public float damping; // 阻尼系数
+    public float riseHeight; //上升高度
+    public float initialUpwardForce; //初始上升力度
+    public float horizontalForce; // 随机水平力大小
+    public float rotationForce = 10f;　// 随机旋转大小
     public float delayBetweenStages = 0.5f;  // 阶段间延迟
 
 
@@ -22,15 +22,15 @@ public class TelekinesisAbility : MonoBehaviour
     private float stageChangeTime;  // 阶段改变的时间点
 
 
-    private GameObject selectedObject;
-    private GameObject originalObject;  // 原始被复制的物体
-    private Vector3 risePoint;  // 固定上升目标点
+    private GameObject selectedObject; //复制出的物体
+    private GameObject originalObject;  // 原始物体
+    private Vector3 risePoint;  // 上升目标点
 
 
-    private GameObject lastHighlighted = null;
+    private GameObject lastHighlighted = null; //当前有高亮效果的物体
 
 
-    private bool isHolding = false;
+    private bool isHolding = false; //玩家是否正在抓取
     private bool hasAppliedHorizontalForce = false;
 
     void Update()
@@ -68,27 +68,20 @@ public class TelekinesisAbility : MonoBehaviour
 
     void TryPickAndCloneObject()
     {
-        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
-        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
+        originalObject = FindClosestThrowableObject();
 
-        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
-        foreach (RaycastHit hit in hits)
+        if (originalObject != null)
         {
-            if (hit.collider.CompareTag("Throwable"))
+            selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
+            Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
+            Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                originalObject = hit.collider.gameObject;
-                selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
-                Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
-                Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = false; // 确保复制的物体不是kinematic
-                }
-                isHolding = true;
-                stage = 0;
-                risePoint = new Vector3(originalObject.transform.position.x, originalObject.transform.position.y + riseHeight, originalObject.transform.position.z);
-                break; // 找到第一个合适的物体后停止搜索
+                rb.isKinematic = false;
             }
+            isHolding = true;
+            stage = 0;
+            risePoint = new Vector3(originalObject.transform.position.x, originalObject.transform.position.y + riseHeight, originalObject.transform.position.z);
         }
     }
 
@@ -161,6 +154,26 @@ public class TelekinesisAbility : MonoBehaviour
 
     void HighlightObjectUnderCrosshair()
     {
+        GameObject closestObject = FindClosestThrowableObject();
+
+        if (closestObject != null && lastHighlighted != closestObject)
+        {
+            if (lastHighlighted != null)
+            {
+                lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();  // 移除上一个物体的高亮
+            }
+            closestObject.GetComponent<MaterialManager>().ApplyHighlight();  // 应用高亮效果
+            lastHighlighted = closestObject; // 更新最后一个高亮的物体
+        }
+        else if (closestObject == null && lastHighlighted != null)
+        {
+            lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
+            lastHighlighted = null;
+        }
+    }
+
+    GameObject FindClosestThrowableObject()
+    {
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
         Ray ray = playerCamera.ScreenPointToRay(screenCenter);
         RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
@@ -181,19 +194,6 @@ public class TelekinesisAbility : MonoBehaviour
             }
         }
 
-        if (closestObject != null && lastHighlighted != closestObject)
-        {
-            if (lastHighlighted != null)
-            {
-                lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();  // 移除上一个物体的高亮
-            }
-            closestObject.GetComponent<MaterialManager>().ApplyHighlight();  // 应用高亮效果
-            lastHighlighted = closestObject; // 更新最后一个高亮的物体
-        }
-        else if (closestObject == null && lastHighlighted != null)
-        {
-            lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
-            lastHighlighted = null;
-        }
+        return closestObject;
     }
 }
