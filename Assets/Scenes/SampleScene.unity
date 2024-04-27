@@ -564,6 +564,12 @@ MonoBehaviour:
   moveSpeed: 10
   throwForce: 30
   destroyTime: 2
+  attractionForce: 20
+  shakeIntensity: 10
+  damping: 10
+  riseHeight: 2
+  initialUpwardForce: 10
+  delayBetweenStages: 0.1
 --- !u!1 &1216934303
 GameObject:
   m_ObjectHideFlags: 0
