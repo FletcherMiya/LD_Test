@@ -1275,15 +1275,15 @@ MonoBehaviour:
   playerCamera: {fileID: 608900697}
   holdPoint: {fileID: 1429352500}
   maxDistance: 100
-  throwForce: 50
+  throwForce: 80
   destroyTime: 5
-  attractionForce: 90
+  attractionForce: 100
   damping: 9
   riseHeight: 2
   initialUpwardForce: 10
   horizontalForce: 5
   rotationForce: 0.2
-  delayBetweenStages: 0.2
+  delayBetweenStages: 0.15
 --- !u!114 &1105933141
 MonoBehaviour:
   m_ObjectHideFlags: 0
