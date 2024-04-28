@@ -45,7 +45,7 @@ public class TelekinesisAbility : MonoBehaviour
             }
             else
             {
-                GameObject slot = FindClosestObjectByTag("Slot");  // 查找最近的插槽
+                GameObject slot = FindClosestObjectByTag("Slot");
                 if (slot != null)
                 {
                     ThrowObjectTowardsSlot(selectedObject, slot);
@@ -73,19 +73,6 @@ public class TelekinesisAbility : MonoBehaviour
         {
             slotMarker.gameObject.SetActive(false);
         }
-        /*
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!isHolding)
-            {
-                TryPickAndCloneObject();
-            }
-            else
-            {
-                ThrowObject();
-            }
-        }
-        */
         if (!isHolding)
         {
             HighlightObjectUnderCrosshair();
@@ -200,9 +187,9 @@ public class TelekinesisAbility : MonoBehaviour
             {
                 rb.isKinematic = false;
                 Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
-                rb.AddForce(direction * throwForce, ForceMode.Impulse);  // 向插槽方向施加力
+                rb.AddForce(direction * throwForce, ForceMode.Impulse);
             }
-            Destroy(obj, destroyTime);  // 设定销毁时间
+            Destroy(obj, destroyTime);
             selectedObject = null;
             originalObject = null;
             isHolding = false;
@@ -242,7 +229,7 @@ public class TelekinesisAbility : MonoBehaviour
         {
             if (hit.collider.CompareTag(tag))
             {
-                float distance = hit.distance;  // 获取当前物体距离摄像机的距离
+                float distance = hit.distance;
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
@@ -254,38 +241,18 @@ public class TelekinesisAbility : MonoBehaviour
         return closestObject;
     }
 
-    /*
     void ShowSlotMarker(GameObject slot)
     {
         Vector3 viewportPosition = playerCamera.WorldToViewportPoint(slot.transform.position);
-        if (viewportPosition.z > 0) // 确保插槽在摄像机前方
-        {
-            slotMarker.gameObject.SetActive(true);
-            Vector2 targetPosition = new Vector2((viewportPosition.x - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.x, (viewportPosition.y - 0.5f) * slotMarker.parent.GetComponent<RectTransform> ().sizeDelta.y);
-            // 使用Lerp进行平滑移动
-            slotMarker.anchoredPosition = Vector2.Lerp(slotMarker.anchoredPosition, targetPosition, Time.deltaTime * 100); // 可调整Lerp速度因子以优化平滑效果
-        }
-        else
-        {
-            slotMarker.gameObject.SetActive(false);
-        }
-    }
-    */
-
-    void ShowSlotMarker(GameObject slot)
-    {
-        Vector3 viewportPosition = playerCamera.WorldToViewportPoint(slot.transform.position);
-        if (viewportPosition.z > 0) // 确保插槽在摄像机前方
+        if (viewportPosition.z > 0 && !slot.GetComponent<SlotTriggerHandler>().activated && selectedObject.GetComponent<MaterialManager>().isKey)
         {
             Vector2 targetPosition = new Vector2((viewportPosition.x - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.x, (viewportPosition.y - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.y);
             if (!slotMarker.gameObject.activeSelf)
             {
-                // 如果SlotMarker之前是不活跃的，直接设置到目标位置
                 slotMarker.anchoredPosition = targetPosition;
             }
 
             slotMarker.gameObject.SetActive(true);
-            // 使用Lerp进行平滑移动
             slotMarker.anchoredPosition = Vector2.Lerp(slotMarker.anchoredPosition, targetPosition, Time.deltaTime * 120);
         }
         else

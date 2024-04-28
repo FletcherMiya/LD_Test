@@ -5,6 +5,8 @@ public class MaterialManager : MonoBehaviour
     public Material normalMaterial;  // 普通状态的材质
     public Material highlightMaterial;  // 高亮状态的材质
 
+    public bool isKey;
+
     private Renderer objRenderer;
 
     private void Awake()
