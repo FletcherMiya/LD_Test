@@ -7,7 +7,7 @@ public class SlotTriggerHandler : MonoBehaviour
     public bool activated;
     private void OnTriggerEnter(Collider other)
     {
-        if (!activated && other.gameObject.GetComponent<MaterialManager>().isKey)
+        if (other.CompareTag("Throwable") && !activated && other.gameObject.GetComponent<MaterialManager>().isKey)
         {
             Destroy(other.gameObject);
             onSlotObject.SetActive(true);

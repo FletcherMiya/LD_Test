@@ -37,6 +37,49 @@ public class TelekinesisAbility : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isHolding)
+            {
+                TryPickAndCloneObject();
+            }
+            else
+            {
+                GameObject target = FindClosestObjectByTags(new string[] { "Slot", "EnemyTarget" });
+                if (target != null)
+                {
+                    if (target.CompareTag("Slot"))
+                    {
+                        if (!target.GetComponent<SlotTriggerHandler>().activated)
+                        {
+                            ThrowObjectTowardsSlot(selectedObject, target);
+                        }
+                        else
+                        {
+                            ThrowObject();
+                        }
+                    }
+                    else
+                    {
+                        if (!target.GetComponent<EnemyTargetManager>().isdead)
+                        {
+                            ThrowObjectTowardsSlot(selectedObject, target);
+                        }
+                        else
+                        {
+                            ThrowObject();
+                        }
+                    }
+                }
+                else
+                {
+                    ThrowObject();
+                }
+            }
+        }
+
+        /*
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!isHolding)
@@ -56,9 +99,57 @@ public class TelekinesisAbility : MonoBehaviour
                 }
             }
         }
+        */
 
         if (isHolding)
         {
+            if (selectedObject.GetComponent<MaterialManager>().isKey)
+            {
+                GameObject closestObject = FindClosestObjectByTags(new string[] { "Slot", "EnemyTarget" });
+                if (closestObject != null)
+                {
+                    if (closestObject.CompareTag("Slot"))
+                    {
+                        if (!closestObject.GetComponent<SlotTriggerHandler>().activated)
+                        {
+                            ShowSlotMarker(closestObject);
+                        }
+                        else
+                        {
+                            slotMarker.gameObject.SetActive(false);
+                        }
+                    }
+                    else
+                    {
+                        if (!closestObject.GetComponent<EnemyTargetManager>().isdead)
+                        {
+                            ShowSlotMarker(closestObject);
+                        }
+                        else
+                        {
+                            slotMarker.gameObject.SetActive(false);
+                        }
+                    }
+                }
+                else
+                {
+                    slotMarker.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                GameObject closestObject = FindClosestObjectByTag("EnemyTarget");
+                if (closestObject != null && !closestObject.GetComponent<EnemyTargetManager>().isdead)
+                {
+                    ShowSlotMarker(closestObject);
+                }
+                else
+                {
+                    slotMarker.gameObject.SetActive(false);
+                }
+            }
+
+            /*
             GameObject closestSlot = FindClosestObjectByTag("Slot");
             if (closestSlot != null)
             {
@@ -68,11 +159,14 @@ public class TelekinesisAbility : MonoBehaviour
             {
                 slotMarker.gameObject.SetActive(false);
             }
+            */
         }
         else
         {
             slotMarker.gameObject.SetActive(false);
         }
+
+
         if (!isHolding)
         {
             HighlightObjectUnderCrosshair();
@@ -216,6 +310,33 @@ public class TelekinesisAbility : MonoBehaviour
         }
     }
 
+    GameObject FindClosestObjectByTags(string[] tags)
+    {
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
+        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
+
+        GameObject closestObject = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (RaycastHit hit in hits)
+        {
+            foreach (string tag in tags)
+            {
+                if (hit.collider.CompareTag(tag))
+                {
+                    float distance = hit.distance;
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestObject = hit.collider.gameObject;
+                    }
+                }
+            }
+        }
+
+        return closestObject;
+    }
     GameObject FindClosestObjectByTag(string tag)
     {
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
@@ -244,7 +365,7 @@ public class TelekinesisAbility : MonoBehaviour
     void ShowSlotMarker(GameObject slot)
     {
         Vector3 viewportPosition = playerCamera.WorldToViewportPoint(slot.transform.position);
-        if (viewportPosition.z > 0 && !slot.GetComponent<SlotTriggerHandler>().activated && selectedObject.GetComponent<MaterialManager>().isKey)
+        if (viewportPosition.z > 0)
         {
             Vector2 targetPosition = new Vector2((viewportPosition.x - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.x, (viewportPosition.y - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.y);
             if (!slotMarker.gameObject.activeSelf)

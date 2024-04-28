@@ -14474,7 +14474,7 @@ AnimatorStateMachine:
   m_AnyStatePosition: {x: 48, y: 72, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 600, y: 48, z: 0}
-  m_ParentStateMachinePosition: {x: 24, y: 0, z: 0}
+  m_ParentStateMachinePosition: {x: 20, y: 0, z: 0}
   m_DefaultState: {fileID: 110262764}
 --- !u!1107 &110702632
 AnimatorStateMachine:
@@ -14871,7 +14871,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107244300605973448}
-    m_Position: {x: 264, y: -48, z: 0}
+    m_Position: {x: 260, y: -50, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107073249461883974}
     m_Position: {x: 264, y: 0, z: 0}
@@ -15093,7 +15093,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107000010125971360}
-    m_Position: {x: -144, y: 60, z: 0}
+    m_Position: {x: -150, y: 60, z: 0}
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
@@ -16163,9 +16163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6dcf6552bd02645a9ceb894d7a6cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 106114, guid: dfea19d1d34dd174d87195f78cb44ae7, type: 3}
-  sounds:
-  - {fileID: 8300000, guid: 08b5a5b778d6952438c6b3bedaa1e6af, type: 3}
+  audioSource: {fileID: 0}
+  sounds: []
   triggerTime: 0
 --- !u!114 &114030386879188540
 MonoBehaviour:
@@ -16261,9 +16260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6dcf6552bd02645a9ceb894d7a6cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 106114, guid: dfea19d1d34dd174d87195f78cb44ae7, type: 3}
-  sounds:
-  - {fileID: 8300000, guid: cf35a39ed3f005d49bf846fdd9eee7a0, type: 3}
+  audioSource: {fileID: 0}
+  sounds: []
   triggerTime: 0
 --- !u!114 &114140785865532380
 MonoBehaviour:
@@ -16366,9 +16364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6dcf6552bd02645a9ceb894d7a6cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 106114, guid: dfea19d1d34dd174d87195f78cb44ae7, type: 3}
+  audioSource: {fileID: 0}
   sounds:
-  - {fileID: 8300000, guid: cf35a39ed3f005d49bf846fdd9eee7a0, type: 3}
+  - {fileID: 0}
   triggerTime: 0
 --- !u!114 &114176214234564994
 MonoBehaviour:
@@ -16771,9 +16769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6dcf6552bd02645a9ceb894d7a6cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 106114, guid: dfea19d1d34dd174d87195f78cb44ae7, type: 3}
-  sounds:
-  - {fileID: 8300000, guid: 08b5a5b778d6952438c6b3bedaa1e6af, type: 3}
+  audioSource: {fileID: 0}
+  sounds: []
   triggerTime: 0
 --- !u!114 &114433705987055478
 MonoBehaviour:
@@ -17354,9 +17351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6dcf6552bd02645a9ceb894d7a6cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 106114, guid: dfea19d1d34dd174d87195f78cb44ae7, type: 3}
-  sounds:
-  - {fileID: 8300000, guid: cf35a39ed3f005d49bf846fdd9eee7a0, type: 3}
+  audioSource: {fileID: 0}
+  sounds: []
   triggerTime: 0
 --- !u!114 &114690627014714542
 MonoBehaviour:
@@ -17439,9 +17435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae6dcf6552bd02645a9ceb894d7a6cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 106114, guid: dfea19d1d34dd174d87195f78cb44ae7, type: 3}
+  audioSource: {fileID: 0}
   sounds:
-  - {fileID: 8300000, guid: 60fdfa301881bae48ae59759cc83b842, type: 3}
+  - {fileID: 0}
   triggerTime: 0
 --- !u!114 &114776088302950842
 MonoBehaviour:
@@ -24874,8 +24870,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsGrounded
     m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102259912433111600, guid: cbd1db45c75e5b948a5befe9ecb80421,
-    type: 2}
+  m_DstState: {fileID: 1102259912433111600, guid: cbd1db45c75e5b948a5befe9ecb80421, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -25144,8 +25139,7 @@ AnimatorStateTransition:
     m_ConditionEvent: InputHorizontal
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102129722683554212, guid: cbd1db45c75e5b948a5befe9ecb80421,
-    type: 2}
+  m_DstState: {fileID: 1102129722683554212, guid: cbd1db45c75e5b948a5befe9ecb80421, type: 2}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -33004,7 +32998,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102000010440148278}
-    m_Position: {x: 528, y: 132, z: 0}
+    m_Position: {x: 530, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000014231688144}
     m_Position: {x: 264, y: 132, z: 0}
@@ -33166,7 +33160,7 @@ AnimatorStateMachine:
     m_Position: {x: 288, y: 12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000012545787238}
-    m_Position: {x: 288, y: 72, z: 0}
+    m_Position: {x: 290, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000010361862342}
     m_Position: {x: 288, y: 132, z: 0}
@@ -33910,10 +33904,10 @@ AnimatorStateMachine:
     m_Position: {x: 312, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102897592577937754}
-    m_Position: {x: 312, y: 48, z: 0}
+    m_Position: {x: 310, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102186440903726776}
-    m_Position: {x: 312, y: -24, z: 0}
+    m_Position: {x: 320, y: -20, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
