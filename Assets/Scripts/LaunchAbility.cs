@@ -33,8 +33,47 @@ public class TelekinesisAbility : MonoBehaviour
     private bool isHolding = false; //玩家是否正在抓取
     private bool hasAppliedHorizontalForce = false;
 
+    public RectTransform slotMarker;
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isHolding)
+            {
+                TryPickAndCloneObject();
+            }
+            else
+            {
+                GameObject slot = FindClosestObjectByTag("Slot");  // 查找最近的插槽
+                if (slot != null)
+                {
+                    ThrowObjectTowardsSlot(selectedObject, slot);
+                }
+                else
+                {
+                    ThrowObject();
+                }
+            }
+        }
+
+        if (isHolding)
+        {
+            GameObject closestSlot = FindClosestObjectByTag("Slot");
+            if (closestSlot != null)
+            {
+                ShowSlotMarker(closestSlot);
+            }
+            else
+            {
+                slotMarker.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            slotMarker.gameObject.SetActive(false);
+        }
+        /*
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!isHolding)
@@ -46,12 +85,12 @@ public class TelekinesisAbility : MonoBehaviour
                 ThrowObject();
             }
         }
-
+        */
         if (!isHolding)
         {
             HighlightObjectUnderCrosshair();
         }
-                else if (lastHighlighted != null)
+        else if (lastHighlighted != null)
         {
             lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
             lastHighlighted = null;
@@ -68,7 +107,7 @@ public class TelekinesisAbility : MonoBehaviour
 
     void TryPickAndCloneObject()
     {
-        originalObject = FindClosestThrowableObject();
+        originalObject = FindClosestObjectByTag("Throwable");
 
         if (originalObject != null)
         {
@@ -152,18 +191,36 @@ public class TelekinesisAbility : MonoBehaviour
         }
     }
 
+    void ThrowObjectTowardsSlot(GameObject obj, GameObject slot)
+    {
+        if (obj != null)
+        {
+            Rigidbody rb = obj.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
+                rb.AddForce(direction * throwForce, ForceMode.Impulse);  // 向插槽方向施加力
+            }
+            Destroy(obj, destroyTime);  // 设定销毁时间
+            selectedObject = null;
+            originalObject = null;
+            isHolding = false;
+        }
+    }
+
     void HighlightObjectUnderCrosshair()
     {
-        GameObject closestObject = FindClosestThrowableObject();
+        GameObject closestObject = FindClosestObjectByTag("Throwable");
 
         if (closestObject != null && lastHighlighted != closestObject)
         {
             if (lastHighlighted != null)
             {
-                lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();  // 移除上一个物体的高亮
+                lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
             }
-            closestObject.GetComponent<MaterialManager>().ApplyHighlight();  // 应用高亮效果
-            lastHighlighted = closestObject; // 更新最后一个高亮的物体
+            closestObject.GetComponent<MaterialManager>().ApplyHighlight();
+            lastHighlighted = closestObject;
         }
         else if (closestObject == null && lastHighlighted != null)
         {
@@ -172,7 +229,7 @@ public class TelekinesisAbility : MonoBehaviour
         }
     }
 
-    GameObject FindClosestThrowableObject()
+    GameObject FindClosestObjectByTag(string tag)
     {
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
         Ray ray = playerCamera.ScreenPointToRay(screenCenter);
@@ -183,9 +240,9 @@ public class TelekinesisAbility : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.CompareTag("Throwable"))
+            if (hit.collider.CompareTag(tag))
             {
-                float distance = hit.distance; // 获取当前物体距离摄像机的距离
+                float distance = hit.distance;  // 获取当前物体距离摄像机的距离
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
@@ -195,5 +252,45 @@ public class TelekinesisAbility : MonoBehaviour
         }
 
         return closestObject;
+    }
+
+    /*
+    void ShowSlotMarker(GameObject slot)
+    {
+        Vector3 viewportPosition = playerCamera.WorldToViewportPoint(slot.transform.position);
+        if (viewportPosition.z > 0) // 确保插槽在摄像机前方
+        {
+            slotMarker.gameObject.SetActive(true);
+            Vector2 targetPosition = new Vector2((viewportPosition.x - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.x, (viewportPosition.y - 0.5f) * slotMarker.parent.GetComponent<RectTransform> ().sizeDelta.y);
+            // 使用Lerp进行平滑移动
+            slotMarker.anchoredPosition = Vector2.Lerp(slotMarker.anchoredPosition, targetPosition, Time.deltaTime * 100); // 可调整Lerp速度因子以优化平滑效果
+        }
+        else
+        {
+            slotMarker.gameObject.SetActive(false);
+        }
+    }
+    */
+
+    void ShowSlotMarker(GameObject slot)
+    {
+        Vector3 viewportPosition = playerCamera.WorldToViewportPoint(slot.transform.position);
+        if (viewportPosition.z > 0) // 确保插槽在摄像机前方
+        {
+            Vector2 targetPosition = new Vector2((viewportPosition.x - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.x, (viewportPosition.y - 0.5f) * slotMarker.parent.GetComponent<RectTransform>().sizeDelta.y);
+            if (!slotMarker.gameObject.activeSelf)
+            {
+                // 如果SlotMarker之前是不活跃的，直接设置到目标位置
+                slotMarker.anchoredPosition = targetPosition;
+            }
+
+            slotMarker.gameObject.SetActive(true);
+            // 使用Lerp进行平滑移动
+            slotMarker.anchoredPosition = Vector2.Lerp(slotMarker.anchoredPosition, targetPosition, Time.deltaTime * 120);
+        }
+        else
+        {
+            slotMarker.gameObject.SetActive(false);
+        }
     }
 }
