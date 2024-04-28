@@ -623,7 +623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000010375016292, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000010485184174, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -639,7 +639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000010670741400, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000010916406630, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -647,7 +647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000010916406630, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000012275483994, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -663,7 +663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000013093955882, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000013309215626, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -671,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000013309215626, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000013710705510, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -679,7 +679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000013710705510, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000013741293584, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -687,7 +687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54000013741293584, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54000013866963282, guid: 5b863c4efb8047949b17a2de0e69b14f, type: 3}
       propertyPath: m_Mass
@@ -1244,7 +1244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409158, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.462615
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 409158, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1252,7 +1252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409158, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.524254
+      value: -1.12
       objectReference: {fileID: 0}
     - target: {fileID: 409158, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2353,7 +2353,7 @@ MonoBehaviour:
   part: {fileID: 0}
   limitParticleCollisionEvent: 1
   maxParticleCollisionEvent: 0
---- !u!1 &1702461213
+--- !u!1 &1639698887
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2361,9 +2361,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1702461214}
-  - component: {fileID: 1702461217}
-  - component: {fileID: 1702461216}
+  - component: {fileID: 1639698890}
+  - component: {fileID: 1639698889}
+  - component: {fileID: 1639698888}
   m_Layer: 0
   m_Name: RagdollTrigger
   m_TagString: Untagged
@@ -2371,40 +2371,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1702461214
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702461213}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 395351737}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1702461216
+--- !u!114 &1639698888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702461213}
+  m_GameObject: {fileID: 1639698887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb34389243161449be3487dda11b8c9, type: 3}
+  m_Script: {fileID: 11500000, guid: f8a6ee24d8c766042b403d33a08151b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 0}
+  openCloseEvents: 0
+  openCloseWindow: 1
+  selectedToolbar: 0
   damage:
     damageValue: 15
     staminaBlockCost: 5
     staminaRecoveryDelay: 1
-    ignoreDefense: 0
-    activeRagdoll: 0
+    ignoreDefense: 1
+    activeRagdoll: 1
     senselessTime: 0
     sender: {fileID: 0}
     receiver: {fileID: 0}
@@ -2414,13 +2401,32 @@ MonoBehaviour:
     reaction_id: 0
     damageType: 
     force: {x: 0, y: 0, z: 0}
---- !u!135 &1702461217
+  overrideDamageSender: {fileID: 0}
+  layerToCollide:
+    serializedVersion: 2
+    m_Bits: 512
+  tags:
+    tags:
+    - Enemy
+  continuousDamage: 0
+  damageFrequency: 0.5
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+  onSendDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  collisionMethod: 0
+  part: {fileID: 0}
+  limitParticleCollisionEvent: 1
+  maxParticleCollisionEvent: 0
+--- !u!135 &1639698889
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702461213}
+  m_GameObject: {fileID: 1639698887}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2433,8 +2439,23 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.7769231
+  m_Radius: 0.77692306
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1639698890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639698887}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 395351737}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805580586
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,7 +2550,7 @@ PrefabInstance:
     - target: {fileID: 3001740050613629464, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
       propertyPath: trigger
       value: 
-      objectReference: {fileID: 1702461213}
+      objectReference: {fileID: 1639698887}
     - target: {fileID: 3001740050613629464, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
       propertyPath: normalMaterial
       value: 
@@ -2588,14 +2609,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8931930122270562763, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7104257548102616665, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1702461214}
+      addedObject: {fileID: 1639698890}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
 --- !u!1 &2050960493
@@ -2897,7 +2918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8931930122270562763, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
