@@ -9,10 +9,13 @@ public class MaterialManager : MonoBehaviour
 
     private Renderer objRenderer;
 
+    public GameObject trigger;
+
     private void Awake()
     {
         objRenderer = GetComponent<Renderer>();
         objRenderer.material = normalMaterial;  // 初始时使用普通材质
+        trigger.SetActive(false);
     }
 
     public void ApplyHighlight()
@@ -29,5 +32,10 @@ public class MaterialManager : MonoBehaviour
         {
             objRenderer.material = normalMaterial;  // 恢复普通材质
         }
+    }
+
+    public void activateTrigger()
+    {
+        trigger.SetActive(true);
     }
 }

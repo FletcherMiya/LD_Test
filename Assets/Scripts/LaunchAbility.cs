@@ -260,8 +260,10 @@ public class TelekinesisAbility : MonoBehaviour
         if (selectedObject != null)
         {
             Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+            MaterialManager mm = selectedObject.GetComponent<MaterialManager>();
             if (rb != null)
             {
+                mm.activateTrigger();
                 rb.isKinematic = false;
                 rb.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
             }
@@ -277,8 +279,10 @@ public class TelekinesisAbility : MonoBehaviour
         if (obj != null)
         {
             Rigidbody rb = obj.GetComponent<Rigidbody>();
+            MaterialManager mm = selectedObject.GetComponent<MaterialManager>();
             if (rb != null)
             {
+                mm.activateTrigger();
                 rb.isKinematic = false;
                 Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
                 rb.AddForce(direction * throwForce, ForceMode.Impulse);
