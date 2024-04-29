@@ -1314,6 +1314,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 237365452, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 237365680, guid: a3d3e9322b030904995bcd87999ccfe6, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1601,11 +1605,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1081254534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2289604931923768067, guid: af250cc4101403947a4f95bf9062c469, type: 3}
-  m_PrefabInstance: {fileID: 2991038608487149124}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105933138
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,14 +2358,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 515366570275296281, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
-      propertyPath: m_CastShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 515366570275296281, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
-      propertyPath: m_StaticShadowCaster
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5703005480957833897, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
       propertyPath: m_Name
       value: Cube
@@ -2411,10 +2402,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9034888708616939478, guid: dd30db5d5a5d0754c908e759f0974b99, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 55451c981ec1c94418d5d86a3844e391, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2428,22 +2415,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2431110600661549177, guid: af250cc4101403947a4f95bf9062c469, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: 55451c981ec1c94418d5d86a3844e391, type: 2}
-    - target: {fileID: 2775128410104859727, guid: af250cc4101403947a4f95bf9062c469, type: 3}
-      propertyPath: m_CastShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2775128410104859727, guid: af250cc4101403947a4f95bf9062c469, type: 3}
-      propertyPath: m_StaticShadowCaster
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305543037642989085, guid: af250cc4101403947a4f95bf9062c469, type: 3}
-      propertyPath: trigger
-      value: 
-      objectReference: {fileID: 1081254534}
     - target: {fileID: 6382034997985310364, guid: af250cc4101403947a4f95bf9062c469, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.517
@@ -2489,8 +2460,7 @@ PrefabInstance:
       value: Cube_Key
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1075006230991114142, guid: af250cc4101403947a4f95bf9062c469, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af250cc4101403947a4f95bf9062c469, type: 3}
