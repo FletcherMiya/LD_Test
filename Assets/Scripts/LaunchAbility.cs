@@ -233,14 +233,13 @@ public class TelekinesisAbility : MonoBehaviour
                     rb.AddForce(directionToHoldPoint.normalized * forceMagnitude);
                     rb.velocity *= 1 - Mathf.Clamp01(damping * Time.deltaTime);
 
-                    // Adjust the perlin noise amplitude gain based on the distance
-                    if (!cameraShaked && distanceToHoldPoint < 1f)  // Define the "small distance"
+                    if (!cameraShaked && distanceToHoldPoint < 1f)
                     {
                         //StartCoroutine(ReceiveShake());
                         perlinNoise.m_AmplitudeGain = 5f;
                         cameraShaked = true;
                     }
-                    if (distanceToHoldPoint < 0.1f)  // Define the "very close" distance
+                    if (distanceToHoldPoint < 0.1f)
                     {
                         perlinNoise.m_AmplitudeGain = 1f;
                     }

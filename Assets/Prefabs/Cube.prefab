@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5703005480957833897}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 55451c981ec1c94418d5d86a3844e391, type: 2}
 --- !u!23 &515366570275296281
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 3405795605179966620}
   - component: {fileID: 5206439258205621332}
   - component: {fileID: 1190343126463268364}
+  - component: {fileID: 6003220810335399305}
   m_Layer: 0
   m_Name: RagdollTrigger
   m_TagString: Untagged
@@ -254,3 +255,15 @@ MonoBehaviour:
   part: {fileID: 0}
   limitParticleCollisionEvent: 1
   maxParticleCollisionEvent: 0
+--- !u!114 &6003220810335399305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777558732077004297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006e3f241f2205e4189e00264617967c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
