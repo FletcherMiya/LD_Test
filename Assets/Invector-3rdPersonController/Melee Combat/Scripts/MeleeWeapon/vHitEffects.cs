@@ -27,8 +27,6 @@ namespace Invector.vMelee
             if (audioSource != null && hitSounds.Length > 0)
             {
                 var clip = hitSounds[UnityEngine.Random.Range(0, hitSounds.Length)];
-                var audioObj = Instantiate(audioSource, transform.position, transform.rotation) as GameObject;
-                audioObj.GetComponent<AudioSource>().PlayOneShot(clip);
             }
         }
 

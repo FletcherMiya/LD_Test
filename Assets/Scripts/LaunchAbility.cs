@@ -1,4 +1,6 @@
 using UnityEngine;
+using Cinemachine;
+using System.Collections;
 
 public class TelekinesisAbility : MonoBehaviour
 {
@@ -35,6 +37,18 @@ public class TelekinesisAbility : MonoBehaviour
 
     public RectTransform slotMarker;
 
+    public CinemachineVirtualCamera cm;
+    private CinemachineBasicMultiChannelPerlin perlinNoise;
+
+    public NoiseSettings holdingNoise;
+    public NoiseSettings launchNoise;
+    public NoiseSettings receiveNoise;
+    private bool cameraShaked = false;
+    private void Awake()
+    {
+        perlinNoise = cm.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        perlinNoise.m_NoiseProfile = null;
+    }
     void Update()
     {
 
@@ -78,28 +92,6 @@ public class TelekinesisAbility : MonoBehaviour
                 }
             }
         }
-
-        /*
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!isHolding)
-            {
-                TryPickAndCloneObject();
-            }
-            else
-            {
-                GameObject slot = FindClosestObjectByTag("Slot");
-                if (slot != null)
-                {
-                    ThrowObjectTowardsSlot(selectedObject, slot);
-                }
-                else
-                {
-                    ThrowObject();
-                }
-            }
-        }
-        */
 
         if (isHolding)
         {
@@ -148,18 +140,6 @@ public class TelekinesisAbility : MonoBehaviour
                     slotMarker.gameObject.SetActive(false);
                 }
             }
-
-            /*
-            GameObject closestSlot = FindClosestObjectByTag("Slot");
-            if (closestSlot != null)
-            {
-                ShowSlotMarker(closestSlot);
-            }
-            else
-            {
-                slotMarker.gameObject.SetActive(false);
-            }
-            */
         }
         else
         {
@@ -192,6 +172,7 @@ public class TelekinesisAbility : MonoBehaviour
 
         if (originalObject != null)
         {
+            cm.Priority = 11;
             selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
             Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
             Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
@@ -199,6 +180,8 @@ public class TelekinesisAbility : MonoBehaviour
             {
                 rb.isKinematic = false;
             }
+            perlinNoise.m_NoiseProfile = holdingNoise;
+            perlinNoise.m_AmplitudeGain = 0.5f;
             isHolding = true;
             stage = 0;
             risePoint = new Vector3(originalObject.transform.position.x, originalObject.transform.position.y + riseHeight, originalObject.transform.position.z);
@@ -208,7 +191,6 @@ public class TelekinesisAbility : MonoBehaviour
     void MoveObjectToHoldPoint()
     {
         if (selectedObject == null) return;
-
         Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
         switch (stage)
         {
@@ -250,6 +232,18 @@ public class TelekinesisAbility : MonoBehaviour
                     float forceMagnitude = Mathf.Clamp(distanceToHoldPoint * attractionForce, 0, 500f);
                     rb.AddForce(directionToHoldPoint.normalized * forceMagnitude);
                     rb.velocity *= 1 - Mathf.Clamp01(damping * Time.deltaTime);
+
+                    // Adjust the perlin noise amplitude gain based on the distance
+                    if (!cameraShaked && distanceToHoldPoint < 1f)  // Define the "small distance"
+                    {
+                        //StartCoroutine(ReceiveShake());
+                        perlinNoise.m_AmplitudeGain = 5f;
+                        cameraShaked = true;
+                    }
+                    if (distanceToHoldPoint < 0.1f)  // Define the "very close" distance
+                    {
+                        perlinNoise.m_AmplitudeGain = 1f;
+                    }
                 }
                 break;
         }
@@ -267,12 +261,15 @@ public class TelekinesisAbility : MonoBehaviour
                 rb.isKinematic = false;
                 rb.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
             }
+            StartCoroutine(CameraShakeAndReset());
             Destroy(selectedObject, destroyTime);
             selectedObject = null;
             originalObject = null;
             isHolding = false;
+            cameraShaked = false;
         }
     }
+
 
     void ThrowObjectTowardsSlot(GameObject obj, GameObject slot)
     {
@@ -287,10 +284,12 @@ public class TelekinesisAbility : MonoBehaviour
                 Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
                 rb.AddForce(direction * throwForce, ForceMode.Impulse);
             }
+            StartCoroutine(CameraShakeAndReset());
             Destroy(obj, destroyTime);
             selectedObject = null;
             originalObject = null;
             isHolding = false;
+            cameraShaked = false;
         }
     }
 
@@ -383,6 +382,53 @@ public class TelekinesisAbility : MonoBehaviour
         else
         {
             slotMarker.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator CameraShakeAndReset()
+    {
+        if (perlinNoise != null)
+        {
+            perlinNoise.m_NoiseProfile = launchNoise;
+            perlinNoise.m_AmplitudeGain = 10;
+
+            float duration = 0.3f;
+            float elapsedTime = 0;
+
+            while (elapsedTime < duration)
+            {
+                perlinNoise.m_AmplitudeGain = Mathf.Lerp(10, 0, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            perlinNoise.m_AmplitudeGain = 0;
+
+            perlinNoise.m_NoiseProfile = null;
+            cm.Priority = 1;
+        }
+    }
+
+    IEnumerator ReceiveShake()
+    {
+        if (perlinNoise != null)
+        {
+            perlinNoise.m_NoiseProfile = receiveNoise;
+            perlinNoise.m_AmplitudeGain = 7;
+
+            float duration = 0.2f;
+            float elapsedTime = 0;
+
+            while (elapsedTime < duration)
+            {
+                perlinNoise.m_AmplitudeGain = Mathf.Lerp(7, 1, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            perlinNoise.m_AmplitudeGain = 1;
+
+            perlinNoise.m_NoiseProfile = holdingNoise;
         }
     }
 }
