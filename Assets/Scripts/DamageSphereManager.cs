@@ -7,7 +7,7 @@ public class DamageSphereManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        this.GetComponent<SphereCollider>().enabled = true;
+        this.GetComponent<Collider>().enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +20,6 @@ public class DamageSphereManager : MonoBehaviour
     IEnumerator disableSphere()
     {
         yield return new WaitForSeconds(0.5f);
-        this.GetComponent<SphereCollider>().enabled = false;
+        this.GetComponent<Collider>().enabled = false;
     }
 }
