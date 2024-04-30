@@ -5204,10 +5204,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 2
   weaponCategory: Pistols
   _shootFrequency: 1
-  isInfinityAmmo: 0
+  isInfinityAmmo: 1
   _ammo: 8
   ignoreTags:
   - Enemy
@@ -5217,7 +5217,7 @@ MonoBehaviour:
   projectile: {fileID: 1000010710861650, guid: 22773fb6a3ebd59429b49fd6e288058e, type: 3}
   muzzle: {fileID: 2001862342925019173}
   projectilesPerShot: 1
-  dispersion: 8
+  dispersion: 5
   quadDispersion: 0
   velocity: 310
   damageByDistance: 0
@@ -5258,7 +5258,7 @@ MonoBehaviour:
   reloadTime: 1
   reloadOneByOne: 0
   _clipSize: 8
-  dontUseReload: 0
+  dontUseReload: 1
   autoReload: 0
   autoReloadStyle: 0
   ammoID: 14
@@ -12666,12 +12666,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 12
+  selectedToolbar: 0
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
   fillHealthOnStart: 1
-  _maxHealth: 100
+  _maxHealth: 20
   _healthRecovery: 0
   _healthRecoveryDelay: 0
   checkHealthEvents: []
@@ -12857,8 +12857,8 @@ MonoBehaviour:
   minTimeShooting: 3
   maxTimeShooting: 3
   minShotWaiting: 3
-  maxShotWaiting: 6
-  aimTargetHeight: 0.35
+  maxShotWaiting: 3
+  aimTargetHeight: 0.5
   doReloadWhileWaiting: 0
   aimSmoothDamp: 10
   smoothArmAlignmentWeight: 4
@@ -12887,7 +12887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 2
   minDistanceToAim: 1
   checkAimRadius: 0.1
   smoothHandRotation: 30
