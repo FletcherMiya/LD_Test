@@ -17,10 +17,13 @@ public class DamageSphereManager : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            GameObject shatter = Instantiate(shatterEffect, transform.position, transform.rotation);
-
-            Rigidbody effectRigidbody = shatter.GetComponent<Rigidbody>();
-                effectRigidbody.velocity = rb.velocity;
+            MaterialManager mm = GetComponentInParent<MaterialManager>();
+            if (!mm.shattered)
+            {
+                shatter();
+                Debug.Log("shatter by sphere");
+                mm.shattered = true;
+            }
             StartCoroutine(disableSphere());
         }
     }
@@ -28,5 +31,13 @@ public class DamageSphereManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         this.GetComponent<Collider>().enabled = false;
+    }
+
+    public void shatter()
+    {
+        GameObject shatter = Instantiate(shatterEffect, transform.position, transform.rotation);
+
+        Rigidbody effectRigidbody = shatter.GetComponent<Rigidbody>();
+        effectRigidbody.velocity = rb.velocity;
     }
 }

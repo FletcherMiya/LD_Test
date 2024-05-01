@@ -30,6 +30,7 @@ TagManager:
   - EnemyTarget
   - HealItem
   - HealTarget
+  - Thrown
   layers:
   - Default
   - TransparentFX
@@ -38,7 +39,7 @@ TagManager:
   - Water
   - UI
   - Shatter
-  - 
+  - Thrown
   - Player
   - Enemy
   - CompanionAI

@@ -274,8 +274,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   IgnoreTag: HealItem
-  CameraRadius: 0.2
-  DampingIntoCollision: 0
+  CameraRadius: 0.102
+  DampingIntoCollision: 2
   DampingFromCollision: 2
 --- !u!114 &75459093
 MonoBehaviour:
@@ -2499,6 +2499,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7184625117404285952, guid: af250cc4101403947a4f95bf9062c469, type: 3}
+      propertyPath: shatterEffect
+      value: 
+      objectReference: {fileID: 6022980115133652098, guid: 7a427079effa9b84786d77a3b3b46800, type: 3}
     - target: {fileID: 9157838139036141269, guid: af250cc4101403947a4f95bf9062c469, type: 3}
       propertyPath: m_Name
       value: Cube_Key

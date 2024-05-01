@@ -12,7 +12,11 @@ public class MaterialManager : MonoBehaviour
 
     public GameObject trigger;
 
-    private bool thrown;
+    public bool thrown;
+    public bool towardsSlot;
+    private int collisionCount;
+    public bool shattered;
+
 
     private void Awake()
     {
@@ -20,6 +24,7 @@ public class MaterialManager : MonoBehaviour
         objRenderer.material = normalMaterial;
         trigger.SetActive(false);
         thrown = false;
+        shattered = false;
     }
 
     public void ApplyHighlight()
@@ -46,11 +51,29 @@ public class MaterialManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (thrown && collision.gameObject.CompareTag("Enemy"))
+        collisionCount++;
+        if (thrown && !towardsSlot)
         {
+            if (!shattered)
+            {
+                trigger.GetComponent<DamageSphereManager>().shatter();
+                shattered = true;
+                Debug.Log("shatter by box not slot");
+            }
             MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
             meshRenderer.enabled = false;
             Destroy(gameObject, 0.05f);
+        }
+        else if (thrown && towardsSlot)
+        {
+            if (collisionCount > 1)
+            {
+                trigger.GetComponent<DamageSphereManager>().shatter();
+                Debug.Log("shatter by box slot");
+                MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+                meshRenderer.enabled = false;
+                Destroy(gameObject, 0.05f);
+            }
         }
     }
 }

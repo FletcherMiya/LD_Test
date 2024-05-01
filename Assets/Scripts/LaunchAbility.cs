@@ -65,7 +65,7 @@ public class TelekinesisAbility : MonoBehaviour
                 {
                     if (target.CompareTag("Slot"))
                     {
-                        if (!target.GetComponent<SlotTriggerHandler>().activated)
+                        if (!target.GetComponent<SlotTriggerHandler>().activated && selectedObject.GetComponent<MaterialManager>().isKey)
                         {
                             ThrowObjectTowardsSlot(selectedObject, target);
                         }
@@ -192,6 +192,7 @@ public class TelekinesisAbility : MonoBehaviour
     {
         if (selectedObject == null) return;
         Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+        selectedObject.layer = 7;
         switch (stage)
         {
             case 0:
@@ -262,7 +263,7 @@ public class TelekinesisAbility : MonoBehaviour
             }
             StartCoroutine(CameraShakeAndReset());
             Destroy(selectedObject, destroyTime);
-            selectedObject.tag = "Untagged";
+            selectedObject.tag = "Thrown";
             selectedObject = null;
             originalObject = null;
             isHolding = false;
@@ -283,10 +284,14 @@ public class TelekinesisAbility : MonoBehaviour
                 rb.isKinematic = false;
                 Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
                 rb.AddForce(direction * throwForce, ForceMode.Impulse);
+                if (slot.CompareTag("Slot"))
+                {
+                    mm.towardsSlot = true;
+                }
             }
             StartCoroutine(CameraShakeAndReset());
             Destroy(obj, destroyTime);
-            selectedObject.tag = "Untagged";
+            selectedObject.tag = "Thrown";
             selectedObject = null;
             originalObject = null;
             isHolding = false;
