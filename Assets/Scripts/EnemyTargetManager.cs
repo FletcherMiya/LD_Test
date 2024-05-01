@@ -22,6 +22,7 @@ public class EnemyTargetManager : MonoBehaviour
     {
         isdead = true;
         SpawnHealItems();
+        Destroy(gameObject);
     }
 
     void SpawnHealItems()
