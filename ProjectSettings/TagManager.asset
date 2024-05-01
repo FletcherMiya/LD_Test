@@ -28,6 +28,8 @@ TagManager:
   - Throwable
   - Slot
   - EnemyTarget
+  - HealItem
+  - HealTarget
   layers:
   - Default
   - TransparentFX

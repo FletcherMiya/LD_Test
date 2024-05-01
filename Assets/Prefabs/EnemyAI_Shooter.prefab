@@ -12666,7 +12666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 11
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
@@ -12818,7 +12818,7 @@ MonoBehaviour:
     isFixedTarget: 0
     isLost: 0
   _secundaryTargets: []
-  _debugVisualDetection: 0
+  _debugVisualDetection: 1
   _debugRaySight: 0
   _debugLastTargetPosition: 0
   _receivedDamage:
@@ -12835,7 +12835,7 @@ MonoBehaviour:
   _maxAttackTime: 2
   _minAttackCount: 1
   _maxAttackCount: 3
-  _attackDistance: 15
+  _attackDistance: 20
   _combatBlockingChance: 50
   _onDamageBlockingChance: 25
   _minStayBlockingTime: 4
@@ -12887,7 +12887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 2
+  selectedToolbar: 0
   minDistanceToAim: 1
   checkAimRadius: 0.1
   smoothHandRotation: 30
@@ -23545,6 +23545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isdead: 0
+  healItemPrefab: {fileID: 5956119253113862918, guid: d382ca64e82aa10468e53214c4f2065e, type: 3}
 --- !u!1 &8695312328973736501
 GameObject:
   m_ObjectHideFlags: 0
