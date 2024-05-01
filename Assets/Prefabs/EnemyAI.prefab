@@ -1443,6 +1443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isdead: 0
   healItemPrefab: {fileID: 5956119253113862918, guid: d382ca64e82aa10468e53214c4f2065e, type: 3}
+  forceMagnitude: 0.5
 --- !u!1 &3153454295931720865
 GameObject:
   m_ObjectHideFlags: 0

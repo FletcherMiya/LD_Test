@@ -6,6 +6,7 @@ public class EnemyTargetManager : MonoBehaviour
 {
     public bool isdead = false;
     public GameObject healItemPrefab;
+    public float forceMagnitude;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,13 @@ public class EnemyTargetManager : MonoBehaviour
         {
             // 在敌人的位置生成HealItem
             GameObject healItem = Instantiate(healItemPrefab, transform.position, Quaternion.identity);
+            // 为HealItem添加随机水平方向的力
+            Rigidbody rb = healItem.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+                rb.AddForce(randomDirection * forceMagnitude, ForceMode.Impulse);
+            }
         }
     }
 }
