@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class DamageSphereManager : MonoBehaviour
 {
+    public GameObject shatterEffect;
+    private Rigidbody rb;
     // Start is called before the first frame update
     private void Awake()
     {
+        rb = GetComponentInParent<Rigidbody>();
         this.GetComponent<Collider>().enabled = true;
     }
 
@@ -14,6 +17,10 @@ public class DamageSphereManager : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            GameObject shatter = Instantiate(shatterEffect, transform.position, transform.rotation);
+
+            Rigidbody effectRigidbody = shatter.GetComponent<Rigidbody>();
+                effectRigidbody.velocity = rb.velocity;
             StartCoroutine(disableSphere());
         }
     }

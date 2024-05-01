@@ -262,6 +262,7 @@ public class TelekinesisAbility : MonoBehaviour
             }
             StartCoroutine(CameraShakeAndReset());
             Destroy(selectedObject, destroyTime);
+            selectedObject.tag = "Untagged";
             selectedObject = null;
             originalObject = null;
             isHolding = false;
@@ -285,6 +286,7 @@ public class TelekinesisAbility : MonoBehaviour
             }
             StartCoroutine(CameraShakeAndReset());
             Destroy(obj, destroyTime);
+            selectedObject.tag = "Untagged";
             selectedObject = null;
             originalObject = null;
             isHolding = false;

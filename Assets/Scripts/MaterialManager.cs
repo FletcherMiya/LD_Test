@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class MaterialManager : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class MaterialManager : MonoBehaviour
 
     public GameObject trigger;
 
+    private bool thrown;
+
     private void Awake()
     {
         objRenderer = GetComponent<Renderer>();
         objRenderer.material = normalMaterial;
         trigger.SetActive(false);
+        thrown = false;
     }
 
     public void ApplyHighlight()
@@ -37,5 +41,16 @@ public class MaterialManager : MonoBehaviour
     public void activateTrigger()
     {
         trigger.SetActive(true);
+        thrown = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (thrown && collision.gameObject.CompareTag("Enemy"))
+        {
+            MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+            meshRenderer.enabled = false;
+            Destroy(gameObject, 0.05f);
+        }
     }
 }
