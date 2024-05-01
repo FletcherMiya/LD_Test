@@ -2502,7 +2502,7 @@ PrefabInstance:
     - target: {fileID: 7184625117404285952, guid: af250cc4101403947a4f95bf9062c469, type: 3}
       propertyPath: shatterEffect
       value: 
-      objectReference: {fileID: 6022980115133652098, guid: 7a427079effa9b84786d77a3b3b46800, type: 3}
+      objectReference: {fileID: 6022980115133652098, guid: 9de3d4ab2b183324d97265976c3a3d24, type: 3}
     - target: {fileID: 9157838139036141269, guid: af250cc4101403947a4f95bf9062c469, type: 3}
       propertyPath: m_Name
       value: Cube_Key
@@ -2598,7 +2598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7797614504243322965, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 85.6632
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7797614504243322965, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
       propertyPath: m_SizeDelta.y

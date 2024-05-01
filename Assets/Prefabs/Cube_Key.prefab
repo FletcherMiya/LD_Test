@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 006e3f241f2205e4189e00264617967c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shatterEffect: {fileID: 6022980115133652098, guid: 9de3d4ab2b183324d97265976c3a3d24, type: 3}
 --- !u!65 &6905715485298682699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -219,6 +220,9 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: f0fb3db09ba3b154aaee77c9c0f0257f, type: 2}
   isKey: 1
   trigger: {fileID: 2289604931923768067}
+  thrown: 0
+  towardsSlot: 0
+  shattered: 0
 --- !u!65 &289701968830024156
 BoxCollider:
   m_ObjectHideFlags: 0
