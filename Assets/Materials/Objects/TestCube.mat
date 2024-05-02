@@ -131,7 +131,7 @@ Material:
     - _GradientSpace: 0
     - _GradientStart: 1.17
     - _GradientTop: 10
-    - _LightContribution: 0.5
+    - _LightContribution: 0
     - _LightFalloffSize: 0.0001
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
