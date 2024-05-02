@@ -51,7 +51,10 @@ public class MaterialManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        collisionCount++;
+        if (thrown)
+        {
+            collisionCount++;
+        }
         if (thrown && !towardsSlot)
         {
             if (!shattered)
@@ -70,6 +73,7 @@ public class MaterialManager : MonoBehaviour
             {
                 trigger.GetComponent<DamageSphereManager>().shatter();
                 Debug.Log("shatter by box slot");
+                Debug.Log(collision.gameObject);
                 MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
                 meshRenderer.enabled = false;
                 Destroy(gameObject, 0.05f);
