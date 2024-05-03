@@ -7,6 +7,7 @@ public class MaterialManager : MonoBehaviour
     public Material highlightMaterial;
 
     public bool isKey;
+    public bool isPillar;
 
     private Renderer objRenderer;
 
