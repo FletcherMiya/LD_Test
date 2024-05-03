@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  attractionForce: 10
+  attractionForce: 15
   damping: 9
   beamParticle: {fileID: 4657031559235816791}
   trailRenderer: {fileID: 45364300916229511}
