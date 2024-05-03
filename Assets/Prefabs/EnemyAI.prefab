@@ -4974,7 +4974,7 @@ MonoBehaviour:
   _changeTargetDelay: 2
   findTargetByDistance: 1
   _fieldOfView: 360
-  _minDistanceToDetect: 3
+  _minDistanceToDetect: 1
   _maxDistanceToDetect: 43.6
   _hasPositionOfTheTarget: 0
   _targetInLineOfSight: 0

@@ -10,6 +10,7 @@ public class LockedDoorController : MonoBehaviour
     public GameObject redLight;
     public float rotationDuration = 2.0f; // 门完全开启所需时间
     private bool isOpened = false; // 用来确保门只被开启一次
+    private bool isClosed = true;
 
     private MeshRenderer greenLightRenderer;
     private MeshRenderer redLightRenderer;
@@ -19,6 +20,8 @@ public class LockedDoorController : MonoBehaviour
     public Material greenLightInactiveMaterial;
     public Material redLightActiveMaterial;
     public Material redLightInactiveMaterial;
+
+    public float closeDelay;
 
     void Start()
     {
@@ -30,6 +33,12 @@ public class LockedDoorController : MonoBehaviour
     void Update()
     {
         UpdateLightMaterials(slotTriggerHandler.activated);
+        if(!slotTriggerHandler.activated && !isClosed)
+        {
+            isClosed = true;
+            StartCoroutine(CloseDoors());
+            isOpened = false;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -40,6 +49,7 @@ public class LockedDoorController : MonoBehaviour
             {
                 isOpened = true; // 确保门只开启一次
                 StartCoroutine(OpenDoors());
+                isClosed = false;
             }
         }
     }
@@ -51,6 +61,27 @@ public class LockedDoorController : MonoBehaviour
         Quaternion rightStartRotation = rightDoor.rotation;
         Quaternion leftEndRotation = leftStartRotation * Quaternion.Euler(0, -90, 0); // 左门向外旋转90度
         Quaternion rightEndRotation = rightStartRotation * Quaternion.Euler(0, 90, 0); // 右门向外旋转90度
+
+        while (timeElapsed < rotationDuration)
+        {
+            leftDoor.rotation = Quaternion.Slerp(leftStartRotation, leftEndRotation, timeElapsed / rotationDuration);
+            rightDoor.rotation = Quaternion.Slerp(rightStartRotation, rightEndRotation, timeElapsed / rotationDuration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        leftDoor.rotation = leftEndRotation;
+        rightDoor.rotation = rightEndRotation;
+    }
+
+    IEnumerator CloseDoors()
+    {
+        yield return new WaitForSeconds(closeDelay);
+        float timeElapsed = 0;
+        Quaternion leftStartRotation = leftDoor.rotation;
+        Quaternion rightStartRotation = rightDoor.rotation;
+        Quaternion leftEndRotation = leftDoor.rotation * Quaternion.Euler(0, 90, 0); // 左门向内旋转回初始位置
+        Quaternion rightEndRotation = rightDoor.rotation * Quaternion.Euler(0, -90, 0); // 右门向内旋转回初始位置
 
         while (timeElapsed < rotationDuration)
         {

@@ -12666,7 +12666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 12
+  selectedToolbar: 10
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
@@ -12796,7 +12796,7 @@ MonoBehaviour:
   _changeTargetDelay: 2
   findTargetByDistance: 1
   _fieldOfView: 360
-  _minDistanceToDetect: 3
+  _minDistanceToDetect: 1
   _maxDistanceToDetect: 35.8
   _hasPositionOfTheTarget: 0
   _targetInLineOfSight: 0
