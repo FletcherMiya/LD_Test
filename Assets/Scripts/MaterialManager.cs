@@ -17,6 +17,9 @@ public class MaterialManager : MonoBehaviour
     private int collisionCount;
     public bool shattered;
 
+    public GameObject levelManager;
+    private LevelManager currentLevel;
+
 
     private void Awake()
     {
@@ -25,6 +28,12 @@ public class MaterialManager : MonoBehaviour
         trigger.SetActive(false);
         thrown = false;
         shattered = false;
+        currentLevel = levelManager.GetComponent<LevelManager>();
+        if (isKey)
+        {
+            currentLevel.increaseCount();
+            Debug.Log("CountIncreased");
+        }
     }
 
     public void ApplyHighlight()
@@ -78,6 +87,15 @@ public class MaterialManager : MonoBehaviour
                 meshRenderer.enabled = false;
                 Destroy(gameObject, 0.05f);
             }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (isKey)
+        {
+            currentLevel.decreaseCount();
+            Debug.Log("Count Decreased");
         }
     }
 }
