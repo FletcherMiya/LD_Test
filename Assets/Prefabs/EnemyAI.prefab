@@ -4844,7 +4844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 5
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
@@ -4900,16 +4900,16 @@ MonoBehaviour:
   useRootMotion: 0
   freeSpeed:
     rotationSpeed: 10
-    walkSpeed: 2
-    runningSpeed: 3
-    sprintSpeed: 4
-    crouchSpeed: 2
+    walkSpeed: 3
+    runningSpeed: 4
+    sprintSpeed: 5
+    crouchSpeed: 3
   strafeSpeed:
     rotationSpeed: 10
-    walkSpeed: 2
-    runningSpeed: 3
-    sprintSpeed: 4
-    crouchSpeed: 2
+    walkSpeed: 3
+    runningSpeed: 4
+    sprintSpeed: 5
+    crouchSpeed: 3
   _useStepOffSet: 1
   stepOffsetEnd: 0.45
   stepOffsetStart: 0.05
@@ -4973,9 +4973,9 @@ MonoBehaviour:
   maxTargetsDetection: 10
   _changeTargetDelay: 2
   findTargetByDistance: 1
-  _fieldOfView: 369
+  _fieldOfView: 360
   _minDistanceToDetect: 3
-  _maxDistanceToDetect: 12
+  _maxDistanceToDetect: 43.6
   _hasPositionOfTheTarget: 0
   _targetInLineOfSight: 0
   _lostTargetDistance: 4
@@ -4989,7 +4989,7 @@ MonoBehaviour:
     - Player
   _obstacles:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65537
   targetsInRange: []
   _currentTarget:
     _tag: 
@@ -5014,9 +5014,9 @@ MonoBehaviour:
   _maxAttackTime: 2
   _minAttackCount: 1
   _maxAttackCount: 3
-  _attackDistance: 1
-  _combatBlockingChance: 50
-  _onDamageBlockingChance: 25
+  _attackDistance: 1.5
+  _combatBlockingChance: 0
+  _onDamageBlockingChance: 0
   _minStayBlockingTime: 4
   _maxStayBlockingTime: 6
   _minTimeToTryBlock: 4
@@ -5024,7 +5024,7 @@ MonoBehaviour:
   ignoreDefenseDamageTypes:
   - unarmed
   - melee
-  _minDistanceOfTheTarget: 2
+  _minDistanceOfTheTarget: 1.5
   _combatDistance: 4
   _strafeCombatMovement: 1
   _alwaysStrafe: 0

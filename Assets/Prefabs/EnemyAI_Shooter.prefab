@@ -12666,7 +12666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 10
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
@@ -12797,7 +12797,7 @@ MonoBehaviour:
   findTargetByDistance: 1
   _fieldOfView: 360
   _minDistanceToDetect: 3
-  _maxDistanceToDetect: 20
+  _maxDistanceToDetect: 35.8
   _hasPositionOfTheTarget: 0
   _targetInLineOfSight: 0
   _lostTargetDistance: 4
@@ -12810,7 +12810,7 @@ MonoBehaviour:
     - Player
   _obstacles:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65537
   targetsInRange: []
   _currentTarget:
     _tag: 
@@ -12845,8 +12845,8 @@ MonoBehaviour:
   ignoreDefenseDamageTypes:
   - unarmed
   - melee
-  _minDistanceOfTheTarget: 15
-  _combatDistance: 15
+  _minDistanceOfTheTarget: 20
+  _combatDistance: 20
   _strafeCombatMovement: 1
   _alwaysStrafe: 0
   _minTimeToChangeStrafeSide: 1
