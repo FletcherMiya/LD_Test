@@ -31,6 +31,7 @@ TagManager:
   - HealItem
   - HealTarget
   - Thrown
+  - Pit
   layers:
   - Default
   - TransparentFX

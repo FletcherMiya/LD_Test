@@ -3,41 +3,28 @@ using System.Collections;
 
 public class PillarManager : MonoBehaviour
 {
-    public Material normalMaterial;
-    public Material highlightMaterial;
+    public float riseHeight; // 上升的高度
+    public float riseDuration; // 完成上升所需的总时间
 
-    public bool isPillar;
-
-    private Renderer objRenderer;
-
-    public bool thrown;
-
-
-    private void Awake()
+    public void StartRising()
     {
-        objRenderer = GetComponent<Renderer>();
-        objRenderer.material = normalMaterial;
-        thrown = false;
+        StartCoroutine(Rise());
     }
 
-    public void ApplyHighlight()
+    private IEnumerator Rise()
     {
-        if (highlightMaterial != null)
+        float startTime = Time.time;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = startPosition + Vector3.up * riseHeight;
+
+        while (Time.time - startTime < riseDuration)
         {
-            objRenderer.material = highlightMaterial;
+            float elapsed = (Time.time - startTime) / riseDuration;
+            float smoothedProgress = Mathf.SmoothStep(0.0f, 1.0f, elapsed);
+            transform.position = Vector3.Lerp(startPosition, endPosition, smoothedProgress);
+            yield return null;
         }
-    }
 
-    public void RemoveHighlight()
-    {
-        if (normalMaterial != null)
-        {
-            objRenderer.material = normalMaterial;
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-
+        transform.position = endPosition; // 确保对象到达最终位置
     }
 }
