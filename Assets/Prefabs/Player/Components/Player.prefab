@@ -2657,7 +2657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 3
+  selectedToolbar: 0
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
@@ -2681,7 +2681,7 @@ MonoBehaviour:
   onResetHealth:
     m_PersistentCalls:
       m_Calls: []
-  deathBy: 0
+  deathBy: 2
   removeComponentsAfterDie: 0
   debugActionListener: 0
   _ragdolled: 0
@@ -3074,7 +3074,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 3

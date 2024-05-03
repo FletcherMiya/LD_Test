@@ -32,6 +32,8 @@ namespace Invector
 
         public UnityEvent onSpawn;
         public bool dontDestroyOnLoad = true;
+        public GameObject abilitiesScript;
+
 
         protected virtual void Start()
         {
@@ -134,6 +136,10 @@ namespace Invector
                 currentPlayer = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
                 currentController = currentPlayer.GetComponent<vThirdPersonController>();
                 currentController.onDead.AddListener(OnCharacterDead);
+                Debug.Log("PlayerSpawn");
+                abilitiesScript.GetComponent<TelekinesisAbility>().holdPoint = currentPlayer.transform.Find("3D Model").Find("holdPoint");
+                abilitiesScript.GetComponent<TelekinesisAbility>().slotMarker = currentPlayer.transform.Find("Invector Components").Find("UI").Find("SlotMarker").gameObject.GetComponent<RectTransform>();
+                abilitiesScript.GetComponent<FollowTarget>().target = currentPlayer.GetComponent<Transform>();
 
                 if (displayInfoInFadeText && vHUDController.instance)
                 {

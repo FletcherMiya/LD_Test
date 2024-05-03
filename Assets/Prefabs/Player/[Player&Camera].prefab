@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 571296338808647693}
   serializedVersion: 2
   m_LocalRotation: {x: 0.01818949, y: -0.0000000037252903, z: -5.820766e-11, w: 0.9998346}
-  m_LocalPosition: {x: -0.29978982, y: -0.17999983, z: 0.98999995}
+  m_LocalPosition: {x: -0.62661415, y: -0.17999983, z: -0.10292972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -140,7 +140,7 @@ Transform:
   m_GameObject: {fileID: 2205828860034677551}
   serializedVersion: 2
   m_LocalRotation: {x: 0.063206516, y: 0.75008786, z: -0.072469495, w: 0.65430987}
-  m_LocalPosition: {x: -3.2380922, y: 3.5514407, z: 26.597898}
+  m_LocalPosition: {x: -3.2380915, y: 3.5514407, z: 25.487137}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -196,7 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8105088757105217395}
   - component: {fileID: 3541391894390450333}
-  - component: {fileID: 1999141834375760827}
   - component: {fileID: 1172796268638870187}
   - component: {fileID: 8236520907140564737}
   - component: {fileID: 7137358175629535610}
@@ -216,7 +215,7 @@ Transform:
   m_GameObject: {fileID: 4145296231681753872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000028088027}
-  m_LocalPosition: {x: -3.2380922, y: 3.5514407, z: 26.597898}
+  m_LocalPosition: {x: -3.2380915, y: 3.5514407, z: 25.487137}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -236,7 +235,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -277,14 +276,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1999141834375760827
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4145296231681753872}
-  m_Enabled: 1
 --- !u!114 &1172796268638870187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,7 +887,7 @@ Transform:
   m_GameObject: {fileID: 5906205998730025747}
   serializedVersion: 2
   m_LocalRotation: {x: -0.018141456, y: -0, z: 2.910383e-11, w: 0.9998355}
-  m_LocalPosition: {x: -0.2998182, y: -0.17999983, z: 0.98999995}
+  m_LocalPosition: {x: -0.36034852, y: -0.17999983, z: -0.12015513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1017,7 +1008,7 @@ MonoBehaviour:
     m_Bits: 9
   IgnoreTag: HealItem
   CameraRadius: 0.102
-  DampingIntoCollision: 2
+  DampingIntoCollision: 0.5
   DampingFromCollision: 2
 --- !u!114 &3872230853296560956
 MonoBehaviour:
@@ -1062,7 +1053,7 @@ Transform:
   m_GameObject: {fileID: 7920325656089958316}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000000018635544, y: -0.0000000037252899, z: -8.7311484e-11, w: 1}
-  m_LocalPosition: {x: -0.29978338, y: -0.17999983, z: 0.98999995}
+  m_LocalPosition: {x: -0.92338973, y: -0.17999983, z: -0.05527826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1211,7 +1202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 949418519032143259, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8864408
+      value: 1.96
       objectReference: {fileID: 0}
     - target: {fileID: 949418519032143259, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1245,9 +1236,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4254382920778170489, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
+      propertyPath: openCloseWindow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4927787948138088685, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677148014718831349, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
+      propertyPath: selectedToolbar
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7797614504243141321, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
       propertyPath: m_AnchorMax.x
