@@ -21,6 +21,10 @@ public class MaterialManager : MonoBehaviour
     public GameObject levelManager;
     private LevelManager currentLevel;
 
+    public GameObject pillarPrefab;
+    public float riseHeight;
+    public float riseSpeed;
+
 
     private void Awake()
     {
@@ -29,8 +33,11 @@ public class MaterialManager : MonoBehaviour
         trigger.SetActive(false);
         thrown = false;
         shattered = false;
-        currentLevel = levelManager.GetComponent<LevelManager>();
-        if (isKey)
+        if (levelManager != null)
+        {
+            currentLevel = levelManager.GetComponent<LevelManager>();
+        }
+        if (isKey && currentLevel != null)
         {
             currentLevel.increaseCount();
             Debug.Log("CountIncreased");
@@ -89,6 +96,16 @@ public class MaterialManager : MonoBehaviour
                 Destroy(gameObject, 0.05f);
             }
         }
+        else if (thrown && isPillar)
+        {
+            if (collision.gameObject.CompareTag("Pit"))
+            {
+                trigger.GetComponent<DamageSphereManager>().shatter();
+                Vector3 spawnPosition = collision.contacts[0].point;
+                GameObject pillar = Instantiate(pillarPrefab, spawnPosition, Quaternion.identity);
+                StartCoroutine(Rise(pillar));
+            }
+        }
     }
 
     private void OnDestroy()
@@ -98,5 +115,21 @@ public class MaterialManager : MonoBehaviour
             currentLevel.decreaseCount();
             Debug.Log("Count Decreased");
         }
+    }
+
+    private IEnumerator Rise(GameObject obj)
+    {
+        float startTime = Time.time;
+        Vector3 startPosition = obj.transform.position;
+        Vector3 endPosition = startPosition + Vector3.up * riseHeight;
+
+        while (Time.time - startTime < riseHeight / riseSpeed)
+        {
+            float fracComplete = (Time.time - startTime) * riseSpeed / riseHeight;
+            obj.transform.position = Vector3.Lerp(startPosition, endPosition, fracComplete);
+            yield return null;
+        }
+
+        obj.transform.position = endPosition;  // 确保预制体准确到达最终位置
     }
 }
