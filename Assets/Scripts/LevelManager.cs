@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public int keyLimit;
     public GameObject slot;
     private bool slotCounted;
+    public GameObject shatterEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,7 @@ public class LevelManager : MonoBehaviour
         {
             slot.GetComponent<SlotTriggerHandler>().activated = false;
             Debug.Log("Slot deactivated");
+            Instantiate(shatterEffect, slot.transform.Find("OnSlotObject").transform.position, slot.transform.Find("OnSlotObject").transform.rotation);
         }
     }
 

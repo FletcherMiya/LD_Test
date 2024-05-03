@@ -6762,6 +6762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyLimit: 3
   slot: {fileID: 1789762725}
+  shatterEffect: {fileID: 6022980115133652098, guid: 9de3d4ab2b183324d97265976c3a3d24, type: 3}
 --- !u!1 &1590232572
 GameObject:
   m_ObjectHideFlags: 0
@@ -7584,8 +7585,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.364712, y: 1, z: 6.172241}
-  m_Center: {x: -0.046655655, y: 0, z: -0.037879944}
+  m_Size: {x: 9.364712, y: 1, z: 21.837479}
+  m_Center: {x: -0.046655655, y: 0, z: -7.8704987}
 --- !u!1 &1836761733
 GameObject:
   m_ObjectHideFlags: 0
