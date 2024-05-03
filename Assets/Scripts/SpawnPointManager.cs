@@ -9,7 +9,7 @@ namespace Invector
         public GameObject slot;
         public GameObject gameManager;
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (other.CompareTag("Player") && slot.GetComponent<SlotTriggerHandler>().activated)
             {
