@@ -115,7 +115,7 @@ public class MaterialManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (isKey)
+        if (isKey && levelManager != null)
         {
             currentLevel.decreaseCount();
             Debug.Log("Count Decreased");
