@@ -5206,7 +5206,7 @@ MonoBehaviour:
   openCloseWindow: 1
   selectedToolbar: 3
   weaponCategory: Pistols
-  _shootFrequency: 1
+  _shootFrequency: 0.5
   isInfinityAmmo: 1
   _ammo: 8
   ignoreTags:
@@ -5217,7 +5217,7 @@ MonoBehaviour:
   projectile: {fileID: 1000010710861650, guid: 22773fb6a3ebd59429b49fd6e288058e, type: 3}
   muzzle: {fileID: 2001862342925019173}
   projectilesPerShot: 1
-  dispersion: 0
+  dispersion: 3
   quadDispersion: 0
   velocity: 310
   damageByDistance: 0
@@ -6217,7 +6217,7 @@ RectTransform:
   m_Father: {fileID: 3973346634931998837}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12855,9 +12855,9 @@ MonoBehaviour:
   _isAiming: 0
   _isBlocking: 0
   minTimeShooting: 1
-  maxTimeShooting: 3
+  maxTimeShooting: 1
   minShotWaiting: 0.5
-  maxShotWaiting: 2
+  maxShotWaiting: 1.5
   aimTargetHeight: 0.5
   doReloadWhileWaiting: 0
   aimSmoothDamp: 10
@@ -19691,7 +19691,7 @@ RectTransform:
   m_Father: {fileID: 8310460499067551977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
