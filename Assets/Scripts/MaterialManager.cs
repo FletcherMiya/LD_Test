@@ -94,6 +94,7 @@ public class MaterialManager : MonoBehaviour
                 trigger.GetComponent<DamageSphereManager>().shatter();
                 shattered = true;
                 Debug.Log("shatter by box not slot");
+                //Debug.Log(collision.gameObject);
             }
             MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
             meshRenderer.enabled = false;
