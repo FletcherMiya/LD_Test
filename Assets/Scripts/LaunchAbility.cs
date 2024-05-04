@@ -346,6 +346,8 @@ public class TelekinesisAbility : MonoBehaviour
 
         return closestObject;
     }
+
+    
     GameObject FindClosestObjectByTag(string tag)
     {
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
@@ -370,7 +372,7 @@ public class TelekinesisAbility : MonoBehaviour
 
         return closestObject;
     }
-
+    
     void ShowSlotMarker(GameObject slot)
     {
         Vector3 viewportPosition = playerCamera.WorldToViewportPoint(slot.transform.position);

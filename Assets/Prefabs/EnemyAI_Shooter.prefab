@@ -12856,8 +12856,8 @@ MonoBehaviour:
   _isBlocking: 0
   minTimeShooting: 1
   maxTimeShooting: 3
-  minShotWaiting: 2
-  maxShotWaiting: 4
+  minShotWaiting: 1
+  maxShotWaiting: 3
   aimTargetHeight: 0.5
   doReloadWhileWaiting: 0
   aimSmoothDamp: 10
@@ -12887,7 +12887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 1
   minDistanceToAim: 1
   checkAimRadius: 0.1
   smoothHandRotation: 30
@@ -12895,7 +12895,7 @@ MonoBehaviour:
   raycastAimTarget: 1
   damageLayer:
     serializedVersion: 2
-    m_Bits: 265
+    m_Bits: 257
   ignoreTags: []
   useLeftIK: 1
   useRightIK: 1
