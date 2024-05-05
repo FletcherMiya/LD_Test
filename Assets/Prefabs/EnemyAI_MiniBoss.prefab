@@ -361,7 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 1
+  selectedToolbar: 3
   weaponCategory: Pistols
   _shootFrequency: 0.1
   isInfinityAmmo: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
   projectile: {fileID: 1000010710861650, guid: 22773fb6a3ebd59429b49fd6e288058e, type: 3}
   muzzle: {fileID: 5534305031092210889}
   projectilesPerShot: 1
-  dispersion: 5
+  dispersion: 3
   quadDispersion: 0
   velocity: 310
   damageByDistance: 0
