@@ -83,6 +83,7 @@ namespace Invector
                 // 速度几乎为0，播放 Beam 粒子系统
                 if (!beamParticle.isPlaying)
                 {
+                    beamParticle.gameObject.SetActive(true);
                     beamParticle.Play();
                 }
                 if (trailRenderer.enabled)
@@ -99,6 +100,7 @@ namespace Invector
                 }
                 if (beamParticle.isPlaying)
                 {
+                    beamParticle.gameObject.SetActive(false);
                     beamParticle.Stop();
                 }
             }
