@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class TelekinesisAbility : MonoBehaviour
 {
@@ -44,6 +45,18 @@ public class TelekinesisAbility : MonoBehaviour
     public NoiseSettings launchNoise;
     public NoiseSettings receiveNoise;
     private bool cameraShaked = false;
+
+    public float energy;          // 当前精力值
+    public float maxEnergy;       // 最大精力值
+    public float energyRecoveryRate; // 精力恢复速率
+    public float energyCost;       // 精力消耗
+    public float timeSinceLastAction = 0; 
+    private bool startedRecovery = false;
+    public float startRecoveryDelay;
+
+    public Slider energySlider;
+    public float staminaSliderValueSmooth = 10;
+
     private void Awake()
     {
         perlinNoise = cm.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -56,7 +69,10 @@ public class TelekinesisAbility : MonoBehaviour
         {
             if (!isHolding)
             {
-                TryPickAndCloneObject();
+                if (energy >= energyCost)
+                {
+                    TryPickAndCloneObject();
+                }
             }
             else
             {
@@ -164,6 +180,23 @@ public class TelekinesisAbility : MonoBehaviour
         {
             MoveObjectToHoldPoint();
         }
+        if (!isHolding && startedRecovery && energy < maxEnergy)
+        {
+            timeSinceLastAction += Time.fixedDeltaTime;
+            if (timeSinceLastAction >= startRecoveryDelay)
+            {
+                energy += energyRecoveryRate * Time.fixedDeltaTime;
+            }
+        }
+        UpdateEnergyUI();
+    }
+
+    void UpdateEnergyUI()
+    {
+        if (energySlider != null)
+        {
+            energySlider.value = Mathf.Lerp(energySlider.value, energy, staminaSliderValueSmooth * Time.fixedDeltaTime);
+        }
     }
 
     void TryPickAndCloneObject()
@@ -172,6 +205,8 @@ public class TelekinesisAbility : MonoBehaviour
 
         if (originalObject != null)
         {
+            energy -= energyCost;
+            startedRecovery = false;
             cm.Priority = 11;
             selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
             Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
@@ -304,6 +339,8 @@ public class TelekinesisAbility : MonoBehaviour
                 StartCoroutine(CameraShakeAndReset());
                 Destroy(selectedObject, destroyTime);
                 selectedObject.tag = "Thrown";
+                startedRecovery = true;
+                timeSinceLastAction = 0;
                 selectedObject = null;
                 originalObject = null;
                 isHolding = false;
@@ -334,6 +371,8 @@ public class TelekinesisAbility : MonoBehaviour
             StartCoroutine(CameraShakeAndReset());
             Destroy(obj, destroyTime);
             selectedObject.tag = "Thrown";
+            startedRecovery = true;
+            timeSinceLastAction = 0;
             selectedObject = null;
             originalObject = null;
             isHolding = false;

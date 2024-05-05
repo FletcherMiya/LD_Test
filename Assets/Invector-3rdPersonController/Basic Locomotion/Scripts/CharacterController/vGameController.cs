@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Invector
 {
@@ -140,6 +141,7 @@ namespace Invector
                 abilitiesScript.GetComponent<TelekinesisAbility>().holdPoint = currentPlayer.transform.Find("3D Model").Find("holdPoint");
                 abilitiesScript.GetComponent<TelekinesisAbility>().slotMarker = currentPlayer.transform.Find("Invector Components").Find("UI").Find("SlotMarker").gameObject.GetComponent<RectTransform>();
                 abilitiesScript.GetComponent<FollowTarget>().target = currentPlayer.GetComponent<Transform>();
+                abilitiesScript.GetComponent<TelekinesisAbility>().energySlider = currentController.transform.Find("Invector Components").Find("UI").Find("Energy").gameObject.GetComponent<Slider>();
 
                 if (displayInfoInFadeText && vHUDController.instance)
                 {

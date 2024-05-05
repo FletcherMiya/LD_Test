@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6447907600340149096}
   - component: {fileID: 3107794324702894996}
   - component: {fileID: 8292254419049150428}
+  - component: {fileID: 2805008277363468405}
   m_Layer: 8
   m_Name: PlayerAbilities
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5563357579976686740}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000028088027}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.46, y: 1.5, z: -1.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3107794324702894996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +50,7 @@ MonoBehaviour:
   holdPoint: {fileID: 0}
   maxDistance: 100
   sphereRadius: 2.5
-  throwForce: 80
+  throwForce: 100
   destroyTime: 5
   attractionForce: 100
   damping: 9
@@ -63,6 +64,14 @@ MonoBehaviour:
   holdingNoise: {fileID: 11400000, guid: cea671bc4acf394468f5204d88a6e10e, type: 2}
   launchNoise: {fileID: 11400000, guid: 26b97198070c6ff4385bceea5ba30762, type: 2}
   receiveNoise: {fileID: 11400000, guid: b87f469092c04924dbf45c019dd00669, type: 2}
+  energy: 30
+  maxEnergy: 30
+  energyRecoveryRate: 7.5
+  energyCost: 15
+  timeSinceLastAction: 0
+  startRecoveryDelay: 1.5
+  energySlider: {fileID: 0}
+  staminaSliderValueSmooth: 10
 --- !u!114 &8292254419049150428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,6 +89,14 @@ MonoBehaviour:
   yOffset: 1.5
   horizontalRotationSpeed: 20
   verticalRotationSpeed: 10
-  minVerticalAngle: -30
-  maxVerticalAngle: 60
+  minVerticalAngle: -45
+  maxVerticalAngle: 70
   smoothTime: 0.1
+--- !u!81 &2805008277363468405
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563357579976686740}
+  m_Enabled: 1

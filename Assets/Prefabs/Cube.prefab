@@ -148,8 +148,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.703, y: 2.108, z: -11.699}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4702165357004355292}
   m_Father: {fileID: 0}
@@ -219,10 +219,13 @@ MonoBehaviour:
   normalMaterial: {fileID: 2100000, guid: 1da0eb5383f3b7a428794b38422c5c3f, type: 2}
   highlightMaterial: {fileID: 2100000, guid: 09c4fabbb60a12e4aa854e103c20e574, type: 2}
   isKey: 0
+  isPillar: 0
   trigger: {fileID: 926734709787263219}
   thrown: 0
   towardsSlot: 0
   shattered: 0
+  levelManager: {fileID: 0}
+  pillarPrefab: {fileID: 0}
 --- !u!65 &2372390456842689173
 BoxCollider:
   m_ObjectHideFlags: 0

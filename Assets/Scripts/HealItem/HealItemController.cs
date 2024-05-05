@@ -47,6 +47,14 @@ namespace Invector
             {
                 CheckSpeedAndControlEffects();
             }
+            if (playerTransform == null)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("HealTarget");
+                if (player != null)
+                {
+                    playerTransform = player.transform;
+                }
+            }
         }
 
         private void OnTriggerStay(Collider other)
