@@ -12666,7 +12666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 12
+  selectedToolbar: 4
   _isDead: 1
   _currentHealth: 0
   isImmortal: 0
@@ -12722,16 +12722,16 @@ MonoBehaviour:
   useRootMotion: 0
   freeSpeed:
     rotationSpeed: 10
-    walkSpeed: 2
-    runningSpeed: 3
+    walkSpeed: 4
+    runningSpeed: 6
     sprintSpeed: 4
-    crouchSpeed: 2
+    crouchSpeed: 4
   strafeSpeed:
     rotationSpeed: 10
-    walkSpeed: 2
-    runningSpeed: 3
+    walkSpeed: 4
+    runningSpeed: 6
     sprintSpeed: 4
-    crouchSpeed: 2
+    crouchSpeed: 4
   _useStepOffSet: 1
   stepOffsetEnd: 0.45
   stepOffsetStart: 0.05

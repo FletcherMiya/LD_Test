@@ -280,36 +280,30 @@ public class TelekinesisAbility : MonoBehaviour
             MaterialManager mm = selectedObject.GetComponent<MaterialManager>();
             if (rb != null)
             {
-                // 射线投射设置
-                Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2); // 屏幕中心
+                int layerMask = LayerMask.GetMask("Default");
+
+                Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
                 Ray ray = playerCamera.ScreenPointToRay(screenCenter);
                 RaycastHit hit;
 
-                // 进行射线投射
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
                 {
-                    // 目标方向
+                    Debug.DrawLine(ray.origin, hit.point, Color.red, 2.0f);
+
                     Vector3 targetDirection = hit.point - selectedObject.transform.position;
-                    // 激活与物体相关的触发器
                     mm.activateTrigger();
-                    // 确保物体不再是Kinematic
                     rb.isKinematic = false;
-                    // 向目标方向添加力
                     rb.AddForce(targetDirection.normalized * throwForce, ForceMode.Impulse);
                 }
                 else
                 {
-                    // 如果没有碰到任何物体，朝向摄像机前方发射
+                    Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.blue, 2.0f);
                     rb.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
                 }
 
-                // 执行抖动效果并重置摄像机
                 StartCoroutine(CameraShakeAndReset());
-                // 设置销毁时间
                 Destroy(selectedObject, destroyTime);
-                // 标记物体
                 selectedObject.tag = "Thrown";
-                // 清除引用
                 selectedObject = null;
                 originalObject = null;
                 isHolding = false;
@@ -329,6 +323,7 @@ public class TelekinesisAbility : MonoBehaviour
             {
                 mm.activateTrigger();
                 rb.isKinematic = false;
+                rb.velocity = Vector3.zero;
                 Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
                 rb.AddForce(direction * throwForce, ForceMode.Impulse);
                 if (slot.CompareTag("Slot"))
