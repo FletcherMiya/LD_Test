@@ -1151,6 +1151,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1b7ac346f14f824b8932cfbd0c712af, type: 3}
+--- !u!1 &156739203 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7424871005319879341, guid: a7619ca9d9a0dbd45bafa89fe1ae8db6, type: 3}
+  m_PrefabInstance: {fileID: 1043630642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &174018110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2609,6 +2614,10 @@ PrefabInstance:
     - target: {fileID: 193247173560940637, guid: a7619ca9d9a0dbd45bafa89fe1ae8db6, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366294855874093316, guid: a7619ca9d9a0dbd45bafa89fe1ae8db6, type: 3}
+      propertyPath: closeDelay
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067665593103145966, guid: a7619ca9d9a0dbd45bafa89fe1ae8db6, type: 3}
       propertyPath: m_Name
@@ -4669,6 +4678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stuff: {fileID: 1834289832}
   slot: {fileID: 0}
+  stuffActivated: 0
 --- !u!65 &592820129
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12830,6 +12840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stuff: {fileID: 1948179817}
   slot: {fileID: 0}
+  stuffActivated: 0
 --- !u!65 &1471501806
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14345,6 +14356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stuff: {fileID: 1435806502}
   slot: {fileID: 1789762725}
+  stuffActivated: 0
 --- !u!65 &1608209000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16034,6 +16046,9 @@ MonoBehaviour:
   - {fileID: 209774749}
   - {fileID: 1789762725}
   stufftoReactivate: []
+  rightDoorSlot: {fileID: 156739203}
+  shatterEffect: {fileID: 6022980115133652098, guid: 9de3d4ab2b183324d97265976c3a3d24, type: 3}
+  levelTrigger: {fileID: 1471501804}
 --- !u!65 &1820375629
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16981,6 +16996,9 @@ MonoBehaviour:
   - {fileID: 1078266256}
   - {fileID: 673371918}
   - {fileID: 209774749}
+  rightDoorSlot: {fileID: 0}
+  shatterEffect: {fileID: 0}
+  levelTrigger: {fileID: 0}
 --- !u!65 &1947671533
 BoxCollider:
   m_ObjectHideFlags: 0

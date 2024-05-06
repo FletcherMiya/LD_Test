@@ -5,11 +5,11 @@ public class LockedDoorController : MonoBehaviour
 {
     public Transform leftDoor;
     public Transform rightDoor;
-    public GameObject slot; // Slot游戏对象
+    public GameObject slot;
     public GameObject greenLight;
     public GameObject redLight;
-    public float rotationDuration = 2.0f; // 门完全开启所需时间
-    private bool isOpened = false; // 用来确保门只被开启一次
+    public float rotationDuration = 2.0f;
+    private bool isOpened = false;
     private bool isClosed = true;
 
     private MeshRenderer greenLightRenderer;
@@ -59,8 +59,8 @@ public class LockedDoorController : MonoBehaviour
         float timeElapsed = 0;
         Quaternion leftStartRotation = leftDoor.rotation;
         Quaternion rightStartRotation = rightDoor.rotation;
-        Quaternion leftEndRotation = leftStartRotation * Quaternion.Euler(0, -90, 0); // 左门向外旋转90度
-        Quaternion rightEndRotation = rightStartRotation * Quaternion.Euler(0, 90, 0); // 右门向外旋转90度
+        Quaternion leftEndRotation = leftStartRotation * Quaternion.Euler(0, -90, 0);
+        Quaternion rightEndRotation = rightStartRotation * Quaternion.Euler(0, 90, 0);
 
         while (timeElapsed < rotationDuration)
         {
@@ -80,8 +80,8 @@ public class LockedDoorController : MonoBehaviour
         float timeElapsed = 0;
         Quaternion leftStartRotation = leftDoor.rotation;
         Quaternion rightStartRotation = rightDoor.rotation;
-        Quaternion leftEndRotation = leftDoor.rotation * Quaternion.Euler(0, 90, 0); // 左门向内旋转回初始位置
-        Quaternion rightEndRotation = rightDoor.rotation * Quaternion.Euler(0, -90, 0); // 右门向内旋转回初始位置
+        Quaternion leftEndRotation = leftDoor.rotation * Quaternion.Euler(0, 90, 0);
+        Quaternion rightEndRotation = rightDoor.rotation * Quaternion.Euler(0, -90, 0);
 
         while (timeElapsed < rotationDuration)
         {
@@ -99,13 +99,13 @@ public class LockedDoorController : MonoBehaviour
     {
         if (activated)
         {
-            greenLightRenderer.material = greenLightActiveMaterial; // 使用激活的绿灯材质
-            redLightRenderer.material = redLightInactiveMaterial; // 使用未激活的红灯材质
+            greenLightRenderer.material = greenLightActiveMaterial;
+            redLightRenderer.material = redLightInactiveMaterial;
         }
         else
         {
-            greenLightRenderer.material = greenLightInactiveMaterial; // 使用未激活的绿灯材质
-            redLightRenderer.material = redLightActiveMaterial; // 使用激活的红灯材质
+            greenLightRenderer.material = greenLightInactiveMaterial;
+            redLightRenderer.material = redLightActiveMaterial;
         }
     }
 }

@@ -6,7 +6,7 @@ public class LevelStuffTrigger : MonoBehaviour
 {
     public GameObject stuff;
     public GameObject slot;
-    private bool stuffActivated = false;
+    public bool stuffActivated = false;
 
     private void OnTriggerEnter(Collider other)
     {

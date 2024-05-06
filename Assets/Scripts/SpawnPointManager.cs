@@ -12,6 +12,24 @@ namespace Invector
         public GameObject[] stufftoDeactivate;
         public GameObject[] stufftoReactivate;
         private bool stuffActivated = false;
+        public GameObject rightDoorSlot;
+        public GameObject shatterEffect;
+        public GameObject levelTrigger;
+
+        private void Update()
+        {
+            if (rightDoorSlot != null)
+            {
+                if (slot.GetComponent<SlotTriggerHandler>().activated)
+                {
+                    if (rightDoorSlot.GetComponent<SlotTriggerHandler>().activated && levelTrigger.GetComponent<LevelStuffTrigger>().stuffActivated)
+                    {
+                        slot.GetComponent<SlotTriggerHandler>().activated = false;
+                        Instantiate(shatterEffect, slot.transform.Find("OnSlotObject").transform.position, slot.transform.Find("OnSlotObject").transform.rotation);
+                    }
+                }
+            }
+        }
         private void OnTriggerStay(Collider other)
         {
             if (other.CompareTag("Player") && slot.GetComponent<SlotTriggerHandler>().activated)
