@@ -2,27 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinibossBehavior : MonoBehaviour
+namespace Invector
 {
-    public GameObject key;
-    public GameObject shields;
-    public GameObject target;
-
-    public void minibossDeath()
+    public class MinibossBehavior : MonoBehaviour
     {
-        disableShields();
-        dropKey();
+        public GameObject key;
+        public GameObject shields;
+        public GameObject target;
+        public GameObject spawn;
 
+        public void minibossDeath()
+        {
+            disableShields();
+            dropKey();
+        }
+
+        private void disableShields()
+        {
+            shields.SetActive(false);
+        }
+
+        private void dropKey()
+        {
+            GameObject droppedKey = Instantiate(key, target.transform.position, target.transform.rotation);
+            droppedKey.GetComponent<Rigidbody>().isKinematic = false;
+            if (spawn != null)
+            {
+                spawn.GetComponent<SpawnPointManager>().stufftoDeactivate = new GameObject[] {droppedKey};
+            }
+        }
     }
 
-    private void disableShields()
-    {
-        shields.SetActive(false);
-    }
-
-    private void dropKey()
-    {
-        GameObject droppedKey = Instantiate(key, target.transform.position, target.transform.rotation);
-        droppedKey.GetComponent<Rigidbody>().isKinematic = false;
-    }
 }
