@@ -146,7 +146,7 @@ public class TelekinesisAbility : MonoBehaviour
             }
             else
             {
-                GameObject closestObject = FindClosestObjectByTag("EnemyTarget");
+                GameObject closestObject = FindClosestObjectByTags(new string[] {"EnemyTarget"});
                 if (closestObject != null && !closestObject.GetComponent<EnemyTargetManager>().isdead)
                 {
                     ShowSlotMarker(closestObject);
@@ -201,7 +201,7 @@ public class TelekinesisAbility : MonoBehaviour
 
     void TryPickAndCloneObject()
     {
-        originalObject = FindClosestObjectByTag("Throwable");
+        originalObject = FindClosestObjectByTags(new string[] { "Throwable" });
 
         if (originalObject != null)
         {
@@ -284,29 +284,6 @@ public class TelekinesisAbility : MonoBehaviour
         }
     }
 
-    /*void ThrowObject()
-    {
-        if (selectedObject != null)
-        {
-            Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
-            MaterialManager mm = selectedObject.GetComponent<MaterialManager>();
-            if (rb != null)
-            {
-                mm.activateTrigger();
-                rb.isKinematic = false;
-                rb.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
-            }
-            StartCoroutine(CameraShakeAndReset());
-            Destroy(selectedObject, destroyTime);
-            selectedObject.tag = "Thrown";
-            selectedObject = null;
-            originalObject = null;
-            isHolding = false;
-            cameraShaked = false;
-        }
-    }
-    */
-
     void ThrowObject()
     {
         if (selectedObject != null)
@@ -315,7 +292,8 @@ public class TelekinesisAbility : MonoBehaviour
             MaterialManager mm = selectedObject.GetComponent<MaterialManager>();
             if (rb != null)
             {
-                int layerMask = LayerMask.GetMask("Default");
+                int layerMask = 1 << LayerMask.NameToLayer("Triggers");
+                layerMask = ~layerMask;
 
                 Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
                 Ray ray = playerCamera.ScreenPointToRay(screenCenter);
@@ -382,7 +360,7 @@ public class TelekinesisAbility : MonoBehaviour
 
     void HighlightObjectUnderCrosshair()
     {
-        GameObject closestObject = FindClosestObjectByTag("Throwable");
+        GameObject closestObject = FindClosestObjectByTags(new string[] { "Throwable" });
 
         if (closestObject != null && lastHighlighted != closestObject)
         {
@@ -409,8 +387,13 @@ public class TelekinesisAbility : MonoBehaviour
         GameObject closestObject = null;
         float closestDistance = float.MaxValue;
 
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(playerCamera);
+
         foreach (RaycastHit hit in hits)
         {
+            if (!GeometryUtility.TestPlanesAABB(planes, hit.collider.bounds))
+                continue;
+
             foreach (string tag in tags)
             {
                 if (hit.collider.CompareTag(tag))
@@ -418,6 +401,14 @@ public class TelekinesisAbility : MonoBehaviour
                     float distance = hit.distance;
                     if (distance < closestDistance)
                     {
+                        if (tag == "Slot")
+                        {
+                            if (hit.collider.GetComponent<SlotTriggerHandler>().activated)
+                            {
+                                continue;
+                            }
+                        }
+
                         closestDistance = distance;
                         closestObject = hit.collider.gameObject;
                     }
@@ -428,7 +419,93 @@ public class TelekinesisAbility : MonoBehaviour
         return closestObject;
     }
 
-    
+    /*
+    GameObject FindClosestObjectByTags(string[] tags)
+    {
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
+        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
+
+        GameObject closestObject = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (RaycastHit hit in hits)
+        {
+            // 确定物体是否在摄像机前方
+            Vector3 directionToTarget = hit.transform.position - playerCamera.transform.position;
+            if (Vector3.Dot(playerCamera.transform.forward, directionToTarget) <= 0)
+                continue;  // 如果物体在摄像机背后，则跳过
+
+            foreach (string tag in tags)
+            {
+                if (hit.collider.CompareTag(tag))
+                {
+                    float distance = hit.distance;
+                    if (distance < closestDistance)
+                    {
+                        // 检查是否为Slot且activated
+                        if (tag == "Slot")
+                        {
+                            SlotTriggerHandler slotManager = hit.collider.GetComponent<SlotTriggerHandler>();
+                            if (slotManager != null && slotManager.activated)
+                            {
+                                // 如果Slot已激活，跳过当前物体
+                                continue;
+                            }
+                        }
+
+                        closestDistance = distance;
+                        closestObject = hit.collider.gameObject;
+                    }
+                }
+            }
+        }
+
+        return closestObject;
+    }
+    */
+
+    /*
+    GameObject FindClosestObjectByTags(string[] tags)
+    {
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
+        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
+
+        GameObject closestObject = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (RaycastHit hit in hits)
+        {
+            foreach (string tag in tags)
+            {
+                if (hit.collider.CompareTag(tag))
+                {
+                    float distance = hit.distance;
+                    if (distance < closestDistance)
+                    {
+                        // 检查是否为Slot且activated
+                        if (tag == "Slot")
+                        {
+                            SlotTriggerHandler slotManager = hit.collider.GetComponent<SlotTriggerHandler>();
+                            if (slotManager != null && slotManager.activated)
+                            {
+                                // 如果Slot已激活，跳过当前物体
+                                continue;
+                            }
+                        }
+
+                        closestDistance = distance;
+                        closestObject = hit.collider.gameObject;
+                    }
+                }
+            }
+        }
+
+        return closestObject;
+    }
+    */
+
     GameObject FindClosestObjectByTag(string tag)
     {
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
@@ -519,5 +596,12 @@ public class TelekinesisAbility : MonoBehaviour
 
             perlinNoise.m_NoiseProfile = holdingNoise;
         }
+    }
+
+    bool IsWithinAcceptanceAngle(Vector3 point, float maxAngle)
+    {
+        Vector3 directionToPoint = (point - playerCamera.transform.position).normalized;
+        float angle = Vector3.Angle(playerCamera.transform.forward, directionToPoint);
+        return angle <= maxAngle;
     }
 }
