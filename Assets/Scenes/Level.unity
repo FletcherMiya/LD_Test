@@ -22515,38 +22515,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6766233477864048355, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7695214028830290352, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7695214028830290352, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7797614504243141321, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7797614504243141321, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7797614504243357725, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7797614504243357725, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8914524802934042210, guid: 4d5a1f9915c3ca640b9d868808494b43, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -3053,7 +3053,7 @@ MonoBehaviour:
   _ragdollVelocity: -15
   _fallMinHeight: 6
   _fallMinVerticalVelocity: -10
-  _fallDamage: 20
+  _fallDamage: 25
   useRollRootMotion: 1
   rollTransition: 0.25
   capsuleHeightReductionRolling: 0.5
