@@ -28,13 +28,11 @@ public class EnemyTargetManager : MonoBehaviour
 
     void SpawnHealItems()
     {
-        int count = Random.Range(1, 4); // 生成1到3个HealItem
+        int count = Random.Range(1, 4);
 
         for (int i = 0; i < count; i++)
         {
-            // 在敌人的位置生成HealItem
             GameObject healItem = Instantiate(healItemPrefab, transform.position, Quaternion.identity);
-            // 为HealItem添加随机水平方向的力
             Rigidbody rb = healItem.GetComponent<Rigidbody>();
             if (rb != null)
             {

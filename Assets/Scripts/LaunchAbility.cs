@@ -12,8 +12,8 @@ public class TelekinesisAbility : MonoBehaviour
 
     public float throwForce; //投掷力度
     public float destroyTime;  // 物体存在时间
-    public float attractionForce; // 吸引至漂浮点时的吸力大小
-    public float damping; // 阻尼系数
+    public float attractionForce; // 吸引至holdPoint时的吸力大小
+    public float damping; // 阻尼
     public float riseHeight; //上升高度
     public float initialUpwardForce; //初始上升力度
     public float horizontalForce; // 随机水平力大小
@@ -411,30 +411,6 @@ public class TelekinesisAbility : MonoBehaviour
                         closestDistance = distance;
                         closestObject = hit.collider.gameObject;
                     }
-                }
-            }
-        }
-
-        return closestObject;
-    }
-    GameObject FindClosestObjectByTag(string tag)
-    {
-        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
-        Ray ray = playerCamera.ScreenPointToRay(screenCenter);
-        RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance);
-
-        GameObject closestObject = null;
-        float closestDistance = float.MaxValue;
-
-        foreach (RaycastHit hit in hits)
-        {
-            if (hit.collider.CompareTag(tag))
-            {
-                float distance = hit.distance;
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestObject = hit.collider.gameObject;
                 }
             }
         }

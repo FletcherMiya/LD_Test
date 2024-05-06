@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    private int trackedKeyCount;
     public int keyLimit;
     public GameObject slot;
-    private bool slotCounted;
     public GameObject shatterEffect;
+    public GameObject nextSlot;
+    private bool shattered = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,34 +18,23 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SlotTriggerHandler currentSlot = slot.GetComponent<SlotTriggerHandler>();
-        if (currentSlot.activated && !slotCounted)
-        {
-            trackedKeyCount++;
-            slotCounted = true;
-            Debug.Log("Slot Counted");
-        }
-        if (!currentSlot.activated && slotCounted)
-        {
-            trackedKeyCount--;
-            slotCounted = false;
-            Debug.Log("Slot Decounted");
-        }
-        if (trackedKeyCount > keyLimit)
+        if (nextSlot.GetComponent<SlotTriggerHandler>().activated)
         {
             slot.GetComponent<SlotTriggerHandler>().activated = false;
             Debug.Log("Slot deactivated");
-            Instantiate(shatterEffect, slot.transform.Find("OnSlotObject").transform.position, slot.transform.Find("OnSlotObject").transform.rotation);
+            if (!shattered)
+            {
+                Instantiate(shatterEffect, slot.transform.Find("OnSlotObject").transform.position, slot.transform.Find("OnSlotObject").transform.rotation);
+                shattered = true;
+            }
         }
     }
 
     public void increaseCount()
     {
-        trackedKeyCount++;
     }
 
     public void decreaseCount()
     {
-        trackedKeyCount--;
     }
 }

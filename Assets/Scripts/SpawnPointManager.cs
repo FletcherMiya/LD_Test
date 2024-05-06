@@ -25,6 +25,7 @@ namespace Invector
                     if (rightDoorSlot.GetComponent<SlotTriggerHandler>().activated && levelTrigger.GetComponent<LevelStuffTrigger>().stuffActivated)
                     {
                         slot.GetComponent<SlotTriggerHandler>().activated = false;
+                        slot.SetActive(false);
                         Instantiate(shatterEffect, slot.transform.Find("OnSlotObject").transform.position, slot.transform.Find("OnSlotObject").transform.rotation);
                     }
                 }

@@ -47,7 +47,7 @@ public class LockedDoorController : MonoBehaviour
         {
             if (slotTriggerHandler != null && slotTriggerHandler.activated)
             {
-                isOpened = true; // 确保门只开启一次
+                isOpened = true;
                 StartCoroutine(OpenDoors());
                 isClosed = false;
             }
