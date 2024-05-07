@@ -52,7 +52,7 @@ public class BossManager : MonoBehaviour
     {
         if (Player == null && other.CompareTag("Player"))
         {
-            Player = other.gameObject;
+            Player = other.gameObject.transform.Find("3D Model").transform.Find("HealTarget").gameObject;
             Debug.Log(Player);
         }
         if (Player != null && other.CompareTag("Player"))
