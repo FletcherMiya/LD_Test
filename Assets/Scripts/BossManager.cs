@@ -183,6 +183,7 @@ public class BossManager : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 Vector3 direction = (playerTransform.position - obj.transform.position).normalized;
                 rb.AddForce(direction * throwForce, ForceMode.Impulse);
+                obj.GetComponent<MaterialManager>().activateTrigger();
                 obj.tag = "Throwable";
                 Destroy(obj, destroyTime);
             }
