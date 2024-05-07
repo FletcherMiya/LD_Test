@@ -8,7 +8,7 @@ public class LevelStuffTrigger : MonoBehaviour
     public GameObject slot;
     public bool stuffActivated = false;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("Player"))
         {
