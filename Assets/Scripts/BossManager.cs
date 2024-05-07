@@ -41,6 +41,10 @@ public class BossManager : MonoBehaviour
     private void FixedUpdate()
     {
         MoveAllObjectsToHoldPoints();
+        if (Player != null)
+        {
+            transform.LookAt(Player.transform);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,7 +65,7 @@ public class BossManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            StopCoroutine(TriggerSequenceWhenPlayerInside());
+            //StopCoroutine(TriggerSequenceWhenPlayerInside());
         }
     }
 
