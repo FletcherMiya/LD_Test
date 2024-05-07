@@ -209,7 +209,8 @@ public class TelekinesisAbility : MonoBehaviour
             startedRecovery = false;
             cm.Priority = 11;
             selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
-            Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
+            selectedObject.GetComponent<MaterialManager>().ToggleColliderTemporarily();
+            //Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
             Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -257,7 +258,7 @@ public class TelekinesisAbility : MonoBehaviour
                     stage = 2;
                     stageChangeTime = Time.time;
                     rb.velocity = Vector3.zero;
-                    Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), false);
+                    //Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), false);
                 }
                 break;
             case 2:

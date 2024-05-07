@@ -23,10 +23,12 @@ public class MaterialManager : MonoBehaviour
 
     public GameObject pillarPrefab;
     private bool hasRisen;
+    private Collider objectCollider;
 
 
     private void Awake()
     {
+        objectCollider = GetComponent<Collider>();
         objRenderer = GetComponent<Renderer>();
         objRenderer.material = normalMaterial;
         trigger.SetActive(false);
@@ -41,6 +43,21 @@ public class MaterialManager : MonoBehaviour
         {
             currentLevel.increaseCount();
             Debug.Log("CountIncreased");
+        }
+    }
+
+    public void ToggleColliderTemporarily()
+    {
+        StartCoroutine(ToggleCollider());
+    }
+
+    private IEnumerator ToggleCollider()
+    {
+        if (objectCollider != null)
+        {
+            objectCollider.enabled = false;
+            yield return new WaitForSeconds(0.5f);
+            objectCollider.enabled = true;
         }
     }
 

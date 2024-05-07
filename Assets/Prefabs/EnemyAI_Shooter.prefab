@@ -12887,7 +12887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 1
+  selectedToolbar: 0
   minDistanceToAim: 1
   checkAimRadius: 0.1
   smoothHandRotation: 30
@@ -12895,7 +12895,7 @@ MonoBehaviour:
   raycastAimTarget: 1
   damageLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 265
   ignoreTags: []
   useLeftIK: 1
   useRightIK: 1
