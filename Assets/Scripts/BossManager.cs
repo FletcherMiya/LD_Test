@@ -27,6 +27,7 @@ public class BossManager : MonoBehaviour
 
     public float throwCoolDown;
     private bool playerInTrigger = false;
+    private bool sequenceStarted = false;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class BossManager : MonoBehaviour
         if (Player == null && other.CompareTag("Player"))
         {
             Player = other.gameObject;
+            Debug.Log(Player);
         }
         if (Player != null && other.CompareTag("Player"))
         {
@@ -65,12 +67,13 @@ public class BossManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            //StopCoroutine(TriggerSequenceWhenPlayerInside());
+            StopCoroutine(TriggerSequenceWhenPlayerInside());
         }
     }
 
     public void StartCombinedSequence()
     {
+        Debug.Log("SequenceStarted");
         StartCoroutine(CombinedSequence());
     }
 
@@ -209,8 +212,17 @@ public class BossManager : MonoBehaviour
     {
         while (playerInTrigger)
         {
-            StartCombinedSequence();
-            yield return new WaitForSeconds(throwCoolDown);
+            if (!sequenceStarted)
+            {
+                StartCombinedSequence();
+                sequenceStarted = true;
+                yield return new WaitForSeconds(throwCoolDown);
+                sequenceStarted = false;
+            }
+            else
+            {
+                yield break;
+            }
         }
     }
 }
