@@ -24,6 +24,7 @@ public class MaterialManager : MonoBehaviour
     public GameObject pillarPrefab;
     private bool hasRisen;
     private Collider objectCollider;
+    public bool isThrownByPlayer = false;
 
 
     private void Awake()
@@ -93,7 +94,7 @@ public class MaterialManager : MonoBehaviour
         {
             if (isPillar)
             {
-                if (collision.gameObject.CompareTag("Pit") && !hasRisen)
+                if (collision.gameObject.CompareTag("Pit") && !hasRisen && isThrownByPlayer)
                 {
                     Vector3 spawnPosition = collision.contacts[0].point;
                     GameObject spawnedObject = Instantiate(pillarPrefab, spawnPosition, Quaternion.identity);

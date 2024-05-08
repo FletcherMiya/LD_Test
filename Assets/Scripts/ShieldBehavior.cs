@@ -11,7 +11,7 @@ public class ShieldBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("Thrown"))
         {
             MaterialManager mm = collision.gameObject.GetComponent<MaterialManager>();
-            if (mm.isKey == false)
+            if (mm.isKey == false & mm.isPillar == false)
             {
                 Instantiate(shatterPrefab, transform.position, transform.rotation);
                 Destroy(gameObject);

@@ -305,12 +305,15 @@ public class TelekinesisAbility : MonoBehaviour
 
                     Vector3 targetDirection = hit.point - selectedObject.transform.position;
                     mm.activateTrigger();
+                    mm.isThrownByPlayer = true;
                     rb.isKinematic = false;
+                    rb.useGravity = true;
                     rb.AddForce(targetDirection.normalized * throwForce, ForceMode.Impulse);
                 }
                 else
                 {
                     Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.blue, 2.0f);
+                    rb.useGravity = true;
                     rb.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
                 }
 
@@ -337,8 +340,10 @@ public class TelekinesisAbility : MonoBehaviour
             if (rb != null)
             {
                 mm.activateTrigger();
+                mm.isThrownByPlayer = true;
                 rb.isKinematic = false;
                 rb.velocity = Vector3.zero;
+                rb.useGravity = true;
                 Vector3 direction = (slot.transform.position - obj.transform.position).normalized;
                 rb.AddForce(direction * throwForce, ForceMode.Impulse);
                 if (slot.CompareTag("Slot"))
