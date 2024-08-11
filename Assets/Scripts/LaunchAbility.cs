@@ -5,35 +5,35 @@ using UnityEngine.UI;
 
 public class TelekinesisAbility : MonoBehaviour
 {
-    public Camera playerCamera; //主摄像机
-    public Transform holdPoint; //物体漂浮点
-    public float maxDistance; //最大抓取距离
-    public float sphereRadius; //判定球大小
+    public Camera playerCamera;
+    public Transform holdPoint;
+    public float maxDistance;
+    public float sphereRadius;
 
-    public float throwForce; //投掷力度
-    public float destroyTime;  // 物体存在时间
-    public float attractionForce; // 吸引至holdPoint时的吸力大小
-    public float damping; // 阻尼
-    public float riseHeight; //上升高度
-    public float initialUpwardForce; //初始上升力度
-    public float horizontalForce; // 随机水平力大小
-    public float rotationForce = 10f;　// 随机旋转大小
-    public float delayBetweenStages = 0.5f;  // 阶段间延迟
-
-
-    private int stage = 0;  // 0 = 初始, 1 = 上升, 2 = 移向holdPoint
-    private float stageChangeTime;  // 阶段改变的时间点
+    public float throwForce;
+    public float destroyTime;
+    public float attractionForce;
+    public float damping;
+    public float riseHeight;
+    public float initialUpwardForce;
+    public float horizontalForce;
+    public float rotationForce = 10f;
+    public float delayBetweenStages = 0.5f;
 
 
-    private GameObject selectedObject; //复制出的物体
-    private GameObject originalObject;  // 原始物体
-    private Vector3 risePoint;  // 上升目标点
+    private int stage = 0;
+    private float stageChangeTime;
 
 
-    private GameObject lastHighlighted = null; //当前有高亮效果的物体
+    private GameObject selectedObject;
+    private GameObject originalObject;
+    private Vector3 risePoint;
 
 
-    private bool isHolding = false; //玩家是否正在抓取
+    private GameObject lastHighlighted = null;
+
+
+    private bool isHolding = false;
     private bool hasAppliedHorizontalForce = false;
 
     public RectTransform slotMarker;
@@ -46,10 +46,10 @@ public class TelekinesisAbility : MonoBehaviour
     public NoiseSettings receiveNoise;
     private bool cameraShaked = false;
 
-    public float energy;          // 当前精力值
-    public float maxEnergy;       // 最大精力值
-    public float energyRecoveryRate; // 精力恢复速率
-    public float energyCost;       // 精力消耗
+    public float energy;
+    public float maxEnergy;
+    public float energyRecoveryRate;
+    public float energyCost;
     public float timeSinceLastAction = 0; 
     private bool startedRecovery = false;
     public float startRecoveryDelay;

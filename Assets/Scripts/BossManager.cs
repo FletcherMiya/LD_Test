@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Invector.vCharacterController;
+using Invector.vCharacterController.AI;
+using Invector;
 
 public class BossManager : MonoBehaviour
 {
@@ -31,24 +33,30 @@ public class BossManager : MonoBehaviour
     private bool playerInTrigger = false;
     private bool sequenceStarted = false;
 
-    public int shieldHitcount; //玩家攻击护盾次数计数
-    public int shieldCount; //最大护盾层数
-
     private vRagdoll bossRagdollScript;
 
-    private int state = 0; //0 = 攻击，1 = 易伤 2 = 回血
+    private vHealthController bossHealth;
+
+    private int state = 0;
+
+    public Transform[] spawnpoints;
+    public GameObject[] enemiesPacks;
+
+    private bool firstBatchSpawned = false;
+    private bool secondBatchSpawned = false;
+    private bool lastBatchSpawned = false;
+    private bool canStartSequence = true;
 
     void Awake()
     {
         currentObjects = new GameObject[holdPoints.Length];
         bossRagdollScript = Boss.GetComponentInParent<vRagdoll>();
         state = 0;
-        shieldHitcount = 0;
+        bossHealth = Boss.GetComponentInParent<vHealthController>();
     }
 
     void Update()
     {
-        
     }
 
     private void FixedUpdate()
@@ -56,19 +64,19 @@ public class BossManager : MonoBehaviour
         MoveAllObjectsToHoldPoints();
         if (Player != null)
         {
-            transform.LookAt(Player.transform);
+            if (Player.GetComponentInParent<vHealthController>().isDead)
+            {
+                clearObjects();
+                StopCoroutine(TriggerSequenceWhenPlayerInside());
+                canStartSequence = false;
+                Player = null;
+            }
         }
-        if (shieldHitcount == shieldCount)
+
+        else if(bossHealth.currentHealth <= 150 && !secondBatchSpawned)
         {
-            state = 1;
-        }
-        if (state == 0)
-        {
-            MoveAllObjectsToHoldPoints();
-        }
-        else if (state == 1)
-        {
-            
+            instantiateEnemies();
+            secondBatchSpawned = true;
         }
     }
 
@@ -78,6 +86,7 @@ public class BossManager : MonoBehaviour
         {
             Player = other.gameObject.transform.Find("3D Model").transform.Find("HealTarget").gameObject;
             Debug.Log(Player);
+            canStartSequence = true;
         }
         if (Player != null && other.CompareTag("Player"))
         {
@@ -92,6 +101,7 @@ public class BossManager : MonoBehaviour
         {
             playerInTrigger = false;
             StopCoroutine(TriggerSequenceWhenPlayerInside());
+            currentObjects = new GameObject[holdPoints.Length];
         }
     }
 
@@ -125,6 +135,7 @@ public class BossManager : MonoBehaviour
                 currentObjects[instantiatedCount].tag = "Untagged";
                 currentObjects[instantiatedCount].GetComponent<MaterialManager>().ToggleColliderTemporarily();
                 Rigidbody rb = currentObjects[instantiatedCount].GetComponent<Rigidbody>();
+                DestroyObject(currentObjects[instantiatedCount], 10);
                 if (rb != null)
                 {
                     rb.isKinematic = false;
@@ -202,7 +213,6 @@ public class BossManager : MonoBehaviour
         resetInstantiateCount();
     }
 
-    /*
     public void ThrowFirstObjectTowardsPlayer()
     {
         if (currentObjects.Length > 0 && currentObjects[0] != null)
@@ -210,48 +220,16 @@ public class BossManager : MonoBehaviour
             GameObject obj = currentObjects[0];
             Rigidbody rb = obj.GetComponent<Rigidbody>();
             Transform playerTransform = Player.GetComponent<Transform>();
+
             if (rb != null)
             {
                 rb.isKinematic = false;
-                rb.velocity = Vector3.zero;
                 Vector3 direction = (playerTransform.position - obj.transform.position).normalized;
-                rb.AddForce(direction * throwForce, ForceMode.Impulse);
-                obj.GetComponent<MaterialManager>().activateTrigger();
-                obj.tag = "Throwable";
-                Destroy(obj, destroyTime);
-            }
-            RemoveObjectFromArray(0);
-        }
-    }
-    */
-
-    public void ThrowFirstObjectTowardsPlayer()
-    {
-        if (currentObjects.Length > 0 && currentObjects[0] != null)
-        {
-            GameObject obj = currentObjects[0];
-            Rigidbody rb = obj.GetComponent<Rigidbody>();
-            Transform playerTransform = Player.GetComponent<Transform>();
-
-            if (rb != null)
-            {
-                rb.isKinematic = false; // 确保物体可以被物理引擎影响
-                Vector3 direction = (playerTransform.position - obj.transform.position).normalized;
-
                 rb.useGravity = false;
-                // 设置物体的速度，确保它匀速移动
-                rb.velocity = direction * velocity; // 这里的 throwForce 作为速度的标量值使用
-
-                // 激活物体的某些效果，如材质变更
+                rb.velocity = direction * velocity;
                 obj.GetComponent<MaterialManager>().activateTrigger();
-
-                // 标记物体，便于以后识别
                 obj.tag = "Throwable";
-
-                // 在到达目的地或某个时间后销毁物体
-                Destroy(obj, destroyTime);
             }
-            // 从数组中移除该物体
             RemoveObjectFromArray(0);
         }
     }
@@ -270,7 +248,7 @@ public class BossManager : MonoBehaviour
     {
         while (playerInTrigger)
         {
-            if (!sequenceStarted && bossRagdollScript.isActive != true)
+            if (!sequenceStarted && bossRagdollScript.isActive != true && canStartSequence)
             {
                 StartCombinedSequence();
                 sequenceStarted = true;
@@ -282,5 +260,45 @@ public class BossManager : MonoBehaviour
                 yield break;
             }
         }
+    }
+
+    private void instantiateEnemies()
+    {
+        if (spawnpoints.Length == 4 && enemiesPacks.Length == 4)
+        {
+            for (int i = 0; i < spawnpoints.Length; i++)
+            {
+                if (spawnpoints[i] != null)
+                {
+                    GameObject enemyToSpawn = enemiesPacks[Random.Range(0, enemiesPacks.Length)];
+                    Instantiate(enemyToSpawn, spawnpoints[i].position, Quaternion.identity);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Spawnpoints or enemiesPacks array is not properly set up.");
+        }
+    }
+
+    public void terminate()
+    {
+        foreach(GameObject go in currentObjects)
+        {
+            Destroy(go);
+        }
+        Destroy(gameObject);
+    }
+
+    public void clearObjects()
+    {
+        foreach (GameObject go in currentObjects)
+        {
+            if (go != null)
+            {
+                go.GetComponent<MaterialManager>().activateTrigger();
+            }
+        }
+        currentObjects = new GameObject[holdPoints.Length];
     }
 }

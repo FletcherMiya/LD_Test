@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PillarManager : MonoBehaviour
 {
-    public float riseHeight; // 上升的高度
-    public float riseDuration; // 完成上升所需的总时间
+    public float riseHeight;
+    public float riseDuration;
 
     public void StartRising()
     {
@@ -25,6 +25,6 @@ public class PillarManager : MonoBehaviour
             yield return null;
         }
 
-        transform.position = endPosition; // 确保对象到达最终位置
+        transform.position = endPosition;
     }
 }

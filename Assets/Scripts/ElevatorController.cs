@@ -8,8 +8,8 @@ namespace Invector.vCharacterController
     {
         public Transform leftDoor;
         public Transform rightDoor;
-        public float openDistance = 2.0f; // 可调整的开门距离
-        public float openSpeed = 1.0f; // 开门速度，单位是单位/秒
+        public float openDistance = 2.0f;
+        public float openSpeed = 1.0f;
         private bool isOpening = false;
         private Vector3 leftDoorStartPosition;
         private Vector3 rightDoorStartPosition;
@@ -20,15 +20,13 @@ namespace Invector.vCharacterController
 
         void Start()
         {
-            // 存储门的初始位置
             if (leftDoor != null)
                 leftDoorStartPosition = leftDoor.position;
             if (rightDoor != null)
                 rightDoorStartPosition = rightDoor.position;
 
-            // 计算门打开时的目标位置
-            leftDoorOpenPosition = leftDoorStartPosition - new Vector3(openDistance, 0, 0); // 左门向左移动
-            rightDoorOpenPosition = rightDoorStartPosition + new Vector3(openDistance, 0, 0); // 右门向右移动
+            leftDoorOpenPosition = leftDoorStartPosition - new Vector3(openDistance, 0, 0);
+            rightDoorOpenPosition = rightDoorStartPosition + new Vector3(openDistance, 0, 0);
         }
 
         void OnTriggerEnter(Collider other)
@@ -36,7 +34,7 @@ namespace Invector.vCharacterController
             if (other.CompareTag("Player") && !isOpening)
             {
                 input = other.GetComponent<vThirdPersonInput>();
-                isOpening = true; // 确保门只打开一次
+                isOpening = true;
                 StartCoroutine(OpenDoors());
             }
         }

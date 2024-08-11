@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlatformTrigger : MonoBehaviour
 {
-    public GameObject platform;  // 指向平台的引用
-    public float moveDistance;  // 沿X轴移动的距离
-    public float moveDuration;  // 移动所需的时间
+    public GameObject platform;
+    public float moveDistance;
+    public float moveDuration;
 
-    private Vector3 originalPosition;  // 平台的原始位置
+    private Vector3 originalPosition;
     private bool isOut = false;
     private bool isIn = true;
 
@@ -16,7 +16,7 @@ public class PlatformTrigger : MonoBehaviour
     {
         if (platform != null)
         {
-            originalPosition = platform.transform.position;  // 记录平台的初始位置
+            originalPosition = platform.transform.position;
         }
         else
         {
@@ -28,8 +28,8 @@ public class PlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isOut)
         {
-            StopAllCoroutines();  // 停止所有当前协程以避免重叠运动
-            StartCoroutine(MovePlatform(originalPosition, originalPosition + Vector3.right * moveDistance));  // 向右移动平台
+            StopAllCoroutines();
+            StartCoroutine(MovePlatform(originalPosition, originalPosition + Vector3.right * moveDistance));
             isOut = true;
             isIn = false;
         }
@@ -39,8 +39,8 @@ public class PlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isIn)
         {
-            StopAllCoroutines();  // 停止所有当前协程以避免重叠运动
-            StartCoroutine(MovePlatform(platform.transform.position, originalPosition));  // 移动平台回到原始位置
+            StopAllCoroutines();
+            StartCoroutine(MovePlatform(platform.transform.position, originalPosition));
             isIn = true;
             isOut = false;
         }
@@ -58,6 +58,6 @@ public class PlatformTrigger : MonoBehaviour
             yield return null;
         }
 
-        platform.transform.position = endPosition;  // 确保平台完全移动到结束位置
+        platform.transform.position = endPosition;
     }
 }

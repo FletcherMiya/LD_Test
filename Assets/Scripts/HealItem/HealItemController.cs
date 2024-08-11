@@ -4,21 +4,20 @@ namespace Invector
 {
     public class HealItemController : MonoBehaviour
     {
-        public Transform playerTransform; // 玩家的Transform
-        public float attractionForce = 10f; // 吸引力大小
-        public float damping = 0.1f; // 阻尼系数
+        public Transform playerTransform;
+        public float attractionForce = 10f;
+        public float damping = 0.1f;
 
-        public ParticleSystem beamParticle; // Beam 粒子系统
-        public TrailRenderer trailRenderer; // Trail Renderer
-        public float speedThreshold = 0.1f; // 速度阈值
+        public ParticleSystem beamParticle;
+        public TrailRenderer trailRenderer;
+        public float speedThreshold = 0.1f;
 
-        private Rigidbody rb; // HealItem的Rigidbody
+        private Rigidbody rb;
 
-        public float groundCheckDistance = 1f; // 地面检测距离
+        public float groundCheckDistance = 1f;
 
         private void Start()
         {
-            // 确保获取的是父对象的Rigidbody
             rb = GetComponentInParent<Rigidbody>();
             if (rb == null)
             {
@@ -34,7 +33,6 @@ namespace Invector
                 }
             }
 
-            // 确保粒子系统已被正确链接
             if (beamParticle == null || trailRenderer == null)
             {
                 Debug.LogError("Particle systems are not properly assigned.");
@@ -83,8 +81,8 @@ namespace Invector
 
         void CheckSpeedAndControlEffects()
         {
-            float currentSpeed = rb.velocity.magnitude; // 获取当前速度
-            bool isOnGround = CheckIfOnGround(); // 检查是否接触地面
+            float currentSpeed = rb.velocity.magnitude;
+            bool isOnGround = CheckIfOnGround();
 
             if (currentSpeed <= speedThreshold && isOnGround)
             {
@@ -96,12 +94,11 @@ namespace Invector
                 }
                 if (trailRenderer.enabled)
                 {
-                    trailRenderer.enabled = false; // 禁用 Trail Renderer
+                    trailRenderer.enabled = false;
                 }
             }
             else
             {
-                // 速度大于阈值，启用 Trail Renderer
                 if (!trailRenderer.enabled)
                 {
                     trailRenderer.enabled = true;
@@ -117,12 +114,11 @@ namespace Invector
         bool CheckIfOnGround()
         {
             RaycastHit hit;
-            // 向下投射一个射线
             if (Physics.Raycast(transform.position, -Vector3.up, out hit, groundCheckDistance))
             {
-                return true; // 接触地面
+                return true;
             }
-            return false; // 不接触地面
+            return false;
         }
     }
 }
