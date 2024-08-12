@@ -27,11 +27,7 @@ public class PlatformRise : MonoBehaviour
 
         foreach (Transform platform in platforms)
         {
-            MeshRenderer meshRenderer = platform.GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
-            {
-                meshRenderer.enabled = false;
-            }
+            platform.gameObject.SetActive(false);
         }
     }
 
@@ -58,11 +54,7 @@ public class PlatformRise : MonoBehaviour
 
     private IEnumerator RaisePlatform(Transform platform)
     {
-        MeshRenderer meshRenderer = platform.GetComponent<MeshRenderer>();
-        if (meshRenderer != null)
-        {
-            meshRenderer.enabled = true;
-        }
+        platform.gameObject.SetActive(true);
 
         float startTime = Time.time;
         Vector3 startPosition = platform.position;
