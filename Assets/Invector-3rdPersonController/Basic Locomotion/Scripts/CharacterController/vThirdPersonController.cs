@@ -152,9 +152,11 @@ namespace Invector.vCharacterController
         /// Determine the direction the player will face based on input and the referenceTransform
         /// </summary>
         /// <param name="referenceTransform"></param>
-        public virtual void UpdateMoveDirection(Transform referenceTransform = null)
+        
+        
+        public virtual void UpdateMoveDirection(Transform referenceTransform)
         {
-            if (isRolling && !rollControl /*|| input.magnitude <= 0.01*/)
+            if (isRolling && !rollControl)
             {
                 moveDirection = Vector3.Lerp(moveDirection, Vector3.zero, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
                 return;
@@ -179,6 +181,35 @@ namespace Invector.vCharacterController
                 SetInputDirection(moveDirectionRaw);
             }
         }
+        
+
+        /*
+        public virtual void UpdateMoveDirection(Transform referenceTransform)
+        {
+            if (isRolling && !rollControl)
+            {
+                moveDirection = Vector3.Lerp(moveDirection, Vector3.zero, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
+                return;
+            }
+
+            // 以玩家自身坐标系为基准，而非世界坐标
+            if (referenceTransform && !rotateByWorld)
+            {
+                var right = referenceTransform.right;  // 现在使用玩家的局部坐标系
+                var forward = referenceTransform.forward;
+
+                moveDirection = (inputSmooth.x * right) + (inputSmooth.z * forward);
+                var moveDirectionRaw = (input.x * right) + (input.z * forward);
+                SetInputDirection(moveDirectionRaw);
+            }
+            else
+            {
+                moveDirection = new Vector3(inputSmooth.x, 0, inputSmooth.z);
+                var moveDirectionRaw = new Vector3(input.x, 0, input.z);
+                SetInputDirection(moveDirectionRaw);
+            }
+        }
+        */
 
         /// <summary>
         /// Set the isSprinting bool and manage the Sprint Behavior 

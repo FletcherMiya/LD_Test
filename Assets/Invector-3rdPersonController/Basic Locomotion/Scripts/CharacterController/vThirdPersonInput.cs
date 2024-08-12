@@ -72,7 +72,7 @@ namespace Invector.vCharacterController
 
         protected Camera _cameraMain;
         protected bool withoutMainCamera;
-        public virtual bool lockUpdateMoveDirection { get; set; }                // lock the method UpdateMoveDirection
+        public bool lockUpdateMoveDirection = false;                // lock the method UpdateMoveDirection
 
         public virtual Camera cameraMain
         {
