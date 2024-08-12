@@ -32,6 +32,7 @@ TagManager:
   - HealTarget
   - Thrown
   - Pit
+  - GravityPlatform
   layers:
   - Default
   - TransparentFX

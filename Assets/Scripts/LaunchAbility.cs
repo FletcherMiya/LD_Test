@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class TelekinesisAbility : MonoBehaviour
 {
     public Camera playerCamera;
+    public GameObject player;
+    public GameObject playerandCamera;
+    private Rigidbody playerRigidbody;
     public Transform holdPoint;
     public float maxDistance;
     public float sphereRadius;
@@ -57,10 +60,13 @@ public class TelekinesisAbility : MonoBehaviour
     public Slider energySlider;
     public float staminaSliderValueSmooth = 10;
 
+    public float rotationDuration = 1f;
+
     private void Awake()
     {
         perlinNoise = cm.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlinNoise.m_NoiseProfile = null;
+        playerRigidbody = player.GetComponent<Rigidbody>();
     }
     void Update()
     {
@@ -171,6 +177,11 @@ public class TelekinesisAbility : MonoBehaviour
         {
             lastHighlighted.GetComponent<MaterialManager>().RemoveHighlight();
             lastHighlighted = null;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AdjustGravityToClosestPlatform();
         }
     }
 
@@ -361,6 +372,47 @@ public class TelekinesisAbility : MonoBehaviour
             isHolding = false;
             cameraShaked = false;
         }
+    }
+
+    void AdjustGravityToClosestPlatform()
+    {
+        GameObject gravityPlatform = FindClosestObjectByTags(new string[] { "GravityPlatform" });
+
+        if (gravityPlatform != null)
+        {
+            // 清零玩家的速度
+            if (playerRigidbody != null)
+            {
+                playerRigidbody.velocity = Vector3.zero;
+                playerRigidbody.angularVelocity = Vector3.zero;
+            }
+
+            // 获取物体的“下”方向
+            Vector3 downDirection = -gravityPlatform.transform.up;
+
+            // 调整玩家Rigidbody的重力方向
+            Physics.gravity = downDirection * Mathf.Abs(Physics.gravity.magnitude);
+
+            // 开始玩家的Lerp旋转，使其上方向对准GravityPlatform的上方向
+            StartCoroutine(LerpPlayerRotation(gravityPlatform.transform.up));
+        }
+    }
+
+    IEnumerator LerpPlayerRotation(Vector3 targetUpDirection)
+    {
+        Quaternion startRotation = playerandCamera.transform.rotation;
+        Quaternion endRotation = Quaternion.FromToRotation(playerandCamera.transform.up, targetUpDirection) * playerandCamera.transform.rotation;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < rotationDuration)
+        {
+            playerandCamera.transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsedTime / rotationDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 确保最终旋转精确
+        playerandCamera.transform.rotation = endRotation;
     }
 
     void HighlightObjectUnderCrosshair()
