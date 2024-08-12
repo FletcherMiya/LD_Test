@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3114727211033076542, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7271386
+      value: -1.7271396
       objectReference: {fileID: 0}
     - target: {fileID: 3114727211033076542, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3527700531278176647, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6259696
+      value: -1.6259705
       objectReference: {fileID: 0}
     - target: {fileID: 3527700531278176647, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -351,6 +351,30 @@ PrefabInstance:
     - target: {fileID: 6150477086363131444, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150019179223442801, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
+      propertyPath: _airSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150019179223442801, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
+      propertyPath: _fallDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150019179223442801, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
+      propertyPath: _extraGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150019179223442801, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
+      propertyPath: selectedToolbar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150019179223442801, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
+      propertyPath: disableAnimations
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469094188048944947, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8105088757105217395, guid: a8e93b6ea3845ad4b87f7cf1708d9ba3, type: 3}
       propertyPath: m_LocalPosition.x
