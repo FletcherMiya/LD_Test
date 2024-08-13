@@ -64,6 +64,8 @@ public class TelekinesisAbility : MonoBehaviour
 
     public float rotationDuration = 1f;
     public bool reversed = false;
+    public float gravityAdjustmentDelay = 1f;
+    public float playerMoveSpeedDuringDelay = 2f;
 
     private void Awake()
     {
@@ -185,14 +187,7 @@ public class TelekinesisAbility : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (reversed)
-            {
-                StartCoroutine(RotateBackToNormalGravity());
-            }
-            else
-            {
-                AdjustGravityToClosestPlatform();
-            }
+            StartCoroutine(AdjustGravityAndRotatePlayer());
         }
 
     }
@@ -214,53 +209,22 @@ public class TelekinesisAbility : MonoBehaviour
         UpdateEnergyUI();
     }
 
-    void AdjustGravityToClosestPlatform()
+    IEnumerator AdjustGravityAndRotatePlayer()
     {
-        GameObject gravityPlatform = FindClosestObjectByTags(new string[] { "GravityPlatform" });
+        GameObject gravityPlatform = null;
 
-        if (gravityPlatform != null)
+        // 当reversed为false时，查找最近的GravityPlatform
+        if (!reversed)
         {
-            // 清零玩家的速度
-            if (playerRigidbody != null)
+            gravityPlatform = FindClosestObjectByTags(new string[] { "GravityPlatform" });
+
+            // 如果找不到GravityPlatform，则不执行后续操作
+            if (gravityPlatform == null)
             {
-                playerRigidbody.velocity = Vector3.zero;
-                playerRigidbody.angularVelocity = Vector3.zero;
+                yield break; // 退出协程
             }
-
-            // 获取物体的“下”方向
-            Vector3 downDirection = -gravityPlatform.transform.up;
-
-            // 调整玩家Rigidbody的重力方向
-            Physics.gravity = downDirection * Mathf.Abs(Physics.gravity.magnitude);
-
-            // 启动旋转协程
-            StartCoroutine(RotatePlayerAndCamera(gravityPlatform.transform.up));
-            reversed = true;
-        }
-    }
-
-    IEnumerator RotatePlayerAndCamera(Vector3 targetUpDirection)
-    {
-        float duration = 1.0f; // 旋转持续时间，可以在需要时调整
-        float elapsed = 0.0f;
-
-        Quaternion initialRotation = player.transform.rotation;
-        Quaternion targetRotation = Quaternion.FromToRotation(player.transform.up, targetUpDirection) * player.transform.rotation;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            player.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
-            yield return null;
         }
 
-        // 确保最后到达目标旋转
-        player.transform.rotation = targetRotation;
-    }
-
-    IEnumerator RotateBackToNormalGravity()
-    {
         // 清零玩家的速度
         if (playerRigidbody != null)
         {
@@ -268,22 +232,38 @@ public class TelekinesisAbility : MonoBehaviour
             playerRigidbody.angularVelocity = Vector3.zero;
         }
 
-        // 当前的玩家下方向
+        // 根据reversed变量决定目标重力方向和旋转方向
+        Vector3 targetDownDirection = reversed ? Vector3.down : -gravityPlatform.transform.up;
         Vector3 currentDownDirection = -player.transform.up;
 
-        // 世界的下方向
-        Vector3 worldDownDirection = Vector3.down;
+        // 调整重力方向
+        Physics.gravity = targetDownDirection * Mathf.Abs(Physics.gravity.magnitude);
 
+        // 在gravityAdjustmentDelay期间移动玩家
+        float moveSpeed = playerMoveSpeedDuringDelay; // 可调的移动速度
         float elapsedTime = 0f;
 
+        while (elapsedTime < gravityAdjustmentDelay)
+        {
+            player.gameObject.GetComponent<vThirdPersonMotor>().snapFactor = 0;
+            elapsedTime += Time.deltaTime;
+
+            // 向up方向移动玩家
+            player.transform.Translate(player.transform.up * moveSpeed * Time.deltaTime, Space.World);
+
+            yield return null;
+        }
+
+        elapsedTime = 0f;
+
+        // 计算旋转持续时间
         while (elapsedTime < rotationDuration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / rotationDuration;
-            t = Mathf.SmoothStep(0f, 1f, t);
+            float t = Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration);
 
             // 计算新的下方向
-            Vector3 newDownDirection = Vector3.Slerp(currentDownDirection, worldDownDirection, t);
+            Vector3 newDownDirection = Vector3.Slerp(currentDownDirection, targetDownDirection, t);
 
             // 计算旋转量
             Quaternion targetRotation = Quaternion.FromToRotation(-player.transform.up, newDownDirection) * player.transform.rotation;
@@ -295,13 +275,11 @@ public class TelekinesisAbility : MonoBehaviour
         }
 
         // 确保最终旋转到位
-        player.transform.rotation = Quaternion.FromToRotation(-player.transform.up, worldDownDirection) * player.transform.rotation;
+        player.transform.rotation = Quaternion.FromToRotation(-player.transform.up, targetDownDirection) * player.transform.rotation;
 
-        // 恢复重力到世界的下方向
-        Physics.gravity = Vector3.down * Mathf.Abs(Physics.gravity.magnitude);
-
-        // 设置reversed为false
-        reversed = false;
+        // 切换reversed状态
+        reversed = !reversed;
+        player.gameObject.GetComponent<vThirdPersonMotor>().snapFactor = 15;
     }
 
 
