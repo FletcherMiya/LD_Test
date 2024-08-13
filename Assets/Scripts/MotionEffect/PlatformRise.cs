@@ -16,6 +16,7 @@ public class PlatformRise : MonoBehaviour
 
     private void Start()
     {
+        transform.position += Vector3.down * riseDistance;
         if (platforms.Length == 0)
         {
             platforms = new Transform[transform.childCount];
