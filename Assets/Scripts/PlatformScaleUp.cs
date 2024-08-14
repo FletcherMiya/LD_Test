@@ -10,6 +10,7 @@ public class PlatformScaleUp : MonoBehaviour
     public float scaleStepDuration;
     public float decelerationFactor;
     public float initialDelay; // 全局等待时间
+    public float rotationForce;
 
     private bool hasScaled = false;
 
@@ -26,7 +27,7 @@ public class PlatformScaleUp : MonoBehaviour
 
         foreach (Transform platform in platforms)
         {
-            platform.localScale = Vector3.zero; // 初始设置为0
+            platform.localScale = Vector3.zero;
             platform.gameObject.SetActive(false);
         }
     }
@@ -56,14 +57,14 @@ public class PlatformScaleUp : MonoBehaviour
     {
         platform.gameObject.SetActive(true);
 
-        // 放大到33%
         yield return ScaleToTarget(platform, targetScale * 0.33f);
 
-        // 放大到66%
         yield return ScaleToTarget(platform, targetScale * 0.66f);
 
-        // 放大到100%
+        AddRandomRotation(platform);
+
         yield return ScaleToTarget(platform, targetScale);
+
     }
 
     private IEnumerator ScaleToTarget(Transform platform, Vector3 target)
@@ -81,5 +82,19 @@ public class PlatformScaleUp : MonoBehaviour
         }
 
         platform.localScale = target;
+    }
+
+    private void AddRandomRotation(Transform platform)
+    {
+        Rigidbody rb = platform.gameObject.GetComponent<Rigidbody>();
+        /*
+        if (rb == null)
+        {
+            rb = platform.gameObject.AddComponent<Rigidbody>(); // 如果物体没有Rigidbody，添加一个
+        }
+        */
+
+        Vector3 torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        rb.AddTorque(torque * rotationForce, ForceMode.Impulse);
     }
 }
