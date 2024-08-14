@@ -287,7 +287,7 @@ public class TelekinesisAbility : MonoBehaviour
             energy -= energyCost;
             startedRecovery = false;
             cm.Priority = 11;
-            selectedObject = Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
+            selectedObject = originalObject; //Instantiate(originalObject, originalObject.transform.position, originalObject.transform.rotation);
             selectedObject.GetComponent<MaterialManager>().ToggleColliderTemporarily();
             //Physics.IgnoreCollision(selectedObject.GetComponent<Collider>(), originalObject.GetComponent<Collider>(), true);
             Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
