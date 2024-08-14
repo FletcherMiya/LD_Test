@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BulletTimeManager : MonoBehaviour
 {
-    public float bulletTimeScale = 0.1f; // 子弹时间的缩放比例
-    public GameObject[] unaffectedObjects; // 不受子弹时间影响的物体列表
+    public float bulletTimeScale = 0.1f;
+    public GameObject[] unaffectedObjects;
     public bool isBulletTime = false;
 
     void Update()
