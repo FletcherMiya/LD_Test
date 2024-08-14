@@ -87,12 +87,6 @@ public class PlatformScaleUp : MonoBehaviour
     private void AddRandomRotation(Transform platform)
     {
         Rigidbody rb = platform.gameObject.GetComponent<Rigidbody>();
-        /*
-        if (rb == null)
-        {
-            rb = platform.gameObject.AddComponent<Rigidbody>(); // 如果物体没有Rigidbody，添加一个
-        }
-        */
 
         Vector3 torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
         rb.AddTorque(torque * rotationForce, ForceMode.Impulse);
