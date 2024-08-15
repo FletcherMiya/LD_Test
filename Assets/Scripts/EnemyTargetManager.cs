@@ -23,6 +23,11 @@ public class EnemyTargetManager : MonoBehaviour
     {
         isdead = true;
         SpawnHealItems();
+        EnemySpawner es = GetComponentInParent<EnemySpawner>();
+        if (es != null)
+        {
+            es.deathCountUp();
+        }
         Destroy(gameObject);
     }
 
