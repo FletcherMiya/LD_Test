@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] Enemies;
     public GameObject[] connectingObjects;
-    private int deathCount = 0;
+   public int deathCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,11 @@ public class EnemySpawner : MonoBehaviour
                 child.SetActive(false);
             }
         }
+
+        foreach (GameObject level in connectingObjects)
+        {
+            level.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -25,10 +30,7 @@ public class EnemySpawner : MonoBehaviour
         {
             foreach (GameObject level in connectingObjects)
             {
-                if (level != null)
-                {
-                    level.SetActive(true);
-                }
+                level.SetActive(true);
             }
         }
     }
