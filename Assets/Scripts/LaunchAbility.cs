@@ -67,12 +67,16 @@ public class TelekinesisAbility : MonoBehaviour
     public float gravityAdjustmentDelay = 1f;
     public float playerMoveSpeedDuringDelay = 2f;
 
+    private Vector3 currentGravityDirection = Vector3.down;
+    public float gravityMagnitude = 9.81f;
+
     private void Awake()
     {
         perlinNoise = cm.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlinNoise.m_NoiseProfile = null;
         playerRigidbody = player.GetComponent<Rigidbody>();
         reversed = false;
+        currentGravityDirection = Vector3.down;
     }
     void Update()
     {
@@ -194,6 +198,13 @@ public class TelekinesisAbility : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ApplyGravity();
+
+        if (playerRigidbody.useGravity == true)
+        {
+            playerRigidbody.useGravity = false;
+        }
+
         if (isHolding && selectedObject != null)
         {
             MoveObjectToHoldPoint();
@@ -209,7 +220,7 @@ public class TelekinesisAbility : MonoBehaviour
         UpdateEnergyUI();
     }
 
-    IEnumerator AdjustGravityAndRotatePlayer()
+    private IEnumerator AdjustGravityAndRotatePlayer()
     {
         GameObject gravityPlatform = null;
 
@@ -232,10 +243,10 @@ public class TelekinesisAbility : MonoBehaviour
         Vector3 targetDownDirection = reversed ? Vector3.down : -gravityPlatform.transform.up;
         Vector3 currentDownDirection = -player.transform.up;
 
-        Physics.gravity = targetDownDirection * Mathf.Abs(Physics.gravity.magnitude);
 
         float moveSpeed = playerMoveSpeedDuringDelay;
         float elapsedTime = 0f;
+        currentGravityDirection = targetDownDirection;
 
         while (elapsedTime < gravityAdjustmentDelay)
         {
@@ -545,5 +556,10 @@ public class TelekinesisAbility : MonoBehaviour
             perlinNoise.m_NoiseProfile = null;
             cm.Priority = 1;
         }
+    }
+
+    private void ApplyGravity()
+    {
+        playerRigidbody.AddForce(currentGravityDirection * playerRigidbody.mass * gravityMagnitude);
     }
 }

@@ -14,7 +14,7 @@ public class PlatformRise : MonoBehaviour
 
     private bool hasRisen = false;
 
-    private void Start()
+    private void Awake()
     {
         transform.position += Vector3.down * riseDistance;
         if (platforms.Length == 0)
