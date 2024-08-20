@@ -2298,7 +2298,9 @@ MonoBehaviour:
   slot: {fileID: 0}
   gameManager: {fileID: 1691466335}
   level: {fileID: 0}
-  stufftoDeactivate: []
+  stufftoDeactivate:
+  - {fileID: 1143620978}
+  - {fileID: 115511547}
   stufftoReactivate: []
   rightDoorSlot: {fileID: 0}
   shatterEffect: {fileID: 0}
@@ -26003,7 +26005,8 @@ MonoBehaviour:
   slot: {fileID: 0}
   gameManager: {fileID: 1691466335}
   level: {fileID: 0}
-  stufftoDeactivate: []
+  stufftoDeactivate:
+  - {fileID: 384686000}
   stufftoReactivate: []
   rightDoorSlot: {fileID: 0}
   shatterEffect: {fileID: 0}
