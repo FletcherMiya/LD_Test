@@ -562,4 +562,9 @@ public class TelekinesisAbility : MonoBehaviour
     {
         playerRigidbody.AddForce(currentGravityDirection * playerRigidbody.mass * gravityMagnitude);
     }
+
+    public void getNewRigidbody()
+    {
+        playerRigidbody = player.GetComponent<Rigidbody>();
+    }
 }

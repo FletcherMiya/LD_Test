@@ -139,8 +139,10 @@ namespace Invector
                 currentController.onDead.AddListener(OnCharacterDead);
                 Debug.Log("PlayerSpawn");
                 abilitiesScript.GetComponent<TelekinesisAbility>().holdPoint = currentPlayer.transform.Find("3D Model").Find("holdPoint");
+                abilitiesScript.GetComponent<TelekinesisAbility>().player = currentPlayer.transform;
+                abilitiesScript.GetComponent<TelekinesisAbility>().getNewRigidbody();
                 abilitiesScript.GetComponent<TelekinesisAbility>().slotMarker = currentPlayer.transform.Find("Invector Components").Find("UI").Find("SlotMarker").gameObject.GetComponent<RectTransform>();
-                abilitiesScript.GetComponent<FollowTarget>().target = currentPlayer.GetComponent<Transform>();
+                abilitiesScript.GetComponent<FollowTarget>().target = currentPlayer.transform.Find("3D Model/HealTarget").GetComponent<Transform>();
                 abilitiesScript.GetComponent<TelekinesisAbility>().energySlider = currentController.transform.Find("Invector Components").Find("UI").Find("Energy").gameObject.GetComponent<Slider>();
 
                 if (displayInfoInFadeText && vHUDController.instance)
