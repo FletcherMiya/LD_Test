@@ -567,4 +567,9 @@ public class TelekinesisAbility : MonoBehaviour
     {
         playerRigidbody = player.GetComponent<Rigidbody>();
     }
+
+    public void resetGravity()
+    {
+        currentGravityDirection = Vector3.down;
+    }
 }

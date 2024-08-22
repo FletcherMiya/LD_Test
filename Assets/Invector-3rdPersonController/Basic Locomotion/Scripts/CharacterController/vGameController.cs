@@ -34,6 +34,7 @@ namespace Invector
         public UnityEvent onSpawn;
         public bool dontDestroyOnLoad = true;
         public GameObject abilitiesScript;
+        public bool isGravityDemo = false;
 
 
         protected virtual void Start()
@@ -61,6 +62,17 @@ namespace Invector
             }
 
             FindPlayer();
+        }
+
+        private void FixedUpdate()
+        {
+            if (isGravityDemo)
+            {
+                if (currentPlayer.transform.position.y < -20 || currentPlayer.transform.position.y > 40)
+                {
+                    currentPlayer.GetComponent<vHealthController>().ChangeHealth(0);
+                }
+            }
         }
 
         /// <summary>
@@ -144,6 +156,8 @@ namespace Invector
                 abilitiesScript.GetComponent<TelekinesisAbility>().slotMarker = currentPlayer.transform.Find("Invector Components").Find("UI").Find("SlotMarker").gameObject.GetComponent<RectTransform>();
                 abilitiesScript.GetComponent<FollowTarget>().target = currentPlayer.transform.Find("3D Model/HealTarget").GetComponent<Transform>();
                 abilitiesScript.GetComponent<TelekinesisAbility>().energySlider = currentController.transform.Find("Invector Components").Find("UI").Find("Energy").gameObject.GetComponent<Slider>();
+                abilitiesScript.GetComponent<TelekinesisAbility>().reversed = false;
+                abilitiesScript.GetComponent<TelekinesisAbility>().resetGravity();
 
                 if (displayInfoInFadeText && vHUDController.instance)
                 {
